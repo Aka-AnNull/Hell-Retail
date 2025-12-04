@@ -83,4 +83,3 @@ texture = ExtResource("13_k0fkb")
 position = Vector2(94, 439)
 
 [node name="Fade_transition" parent="." instance=ExtResource("2_tut6d")]
-visible = false
