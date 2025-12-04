@@ -4,7 +4,7 @@ extends Node2D
 @onready var playerS = $"playerSprite"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	position = Vector2(100,300)
+	position = Vector2(990,50)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

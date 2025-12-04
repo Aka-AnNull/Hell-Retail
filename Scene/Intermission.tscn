@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cv7dmhyslrch1"]
 
-[ext_resource type="Script" uid="uid://e1s6bvx63i55" path="res://Scene/Intermission.gd" id="1_142g4"]
+[ext_resource type="Script" uid="uid://e1s6bvx63i55" path="res://Script/Intermission.gd" id="1_142g4"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="2_dt26l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5edra"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cqfap1i4ej4wv"]
+[gd_scene load_steps=17 format=3 uid="uid://cqfap1i4ej4wv"]
 
-[ext_resource type="Script" uid="uid://cuwfawc85p8lw" path="res://main_menu.gd" id="1_ftydy"]
+[ext_resource type="Script" uid="uid://cuwfawc85p8lw" path="res://Script/main_menu.gd" id="1_ftydy"]
 [ext_resource type="Texture2D" uid="uid://cqqssecfftw8a" path="res://Sprite/BG/daniil-glushkov-8.jpg" id="2_ejkra"]
 [ext_resource type="PackedScene" uid="uid://ba28t3xscv5c1" path="res://Scene/Menu_music.tscn" id="2_klvvj"]
 [ext_resource type="Texture2D" uid="uid://bourb0l5nq1hw" path="res://Sprite/Button/Start_ng.png" id="2_s2f1d"]
+[ext_resource type="AudioStream" uid="uid://cev0i3e2iri3n" path="res://Audio Asset/select.wav" id="2_shpw1"]
+[ext_resource type="AudioStream" uid="uid://cllptc1n32vqq" path="res://Audio Asset/confirm.wav" id="3_34sut"]
 [ext_resource type="Texture2D" uid="uid://cgfypvepivij0" path="res://Sprite/Button/Start_g.png" id="3_ejkra"]
 [ext_resource type="Texture2D" uid="uid://t5hj0we3v2vi" path="res://Sprite/ske_menu/pixil-frame-0.png" id="4_47k5r"]
 [ext_resource type="Texture2D" uid="uid://dyp5q84ugotcj" path="res://Sprite/Button/Setting_ng.png" id="4_yok32"]
@@ -122,7 +124,19 @@ vertical_alignment = 1
 
 [node name="Fade_timer" type="Timer" parent="Fade_transition"]
 
+[node name="HoverSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_shpw1")
+volume_db = 7.0
+
+[node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_34sut")
+volume_db = 7.0
+
+[connection signal="focus_entered" from="Button Manager/Start" to="." method="_on_start_focus_entered"]
+[connection signal="mouse_entered" from="Button Manager/Start" to="." method="_on_start_mouse_entered"]
 [connection signal="pressed" from="Button Manager/Start" to="." method="_on_start_pressed"]
+[connection signal="mouse_entered" from="Button Manager/Setting" to="." method="_on_setting_mouse_entered"]
 [connection signal="pressed" from="Button Manager/Setting" to="." method="_on_setting_pressed"]
+[connection signal="mouse_entered" from="Button Manager/Quit" to="." method="_on_quit_mouse_entered"]
 [connection signal="pressed" from="Button Manager/Quit" to="." method="_on_quit_pressed"]
 [connection signal="timeout" from="Fade_transition/Fade_timer" to="." method="_on_fade_timer_timeout"]

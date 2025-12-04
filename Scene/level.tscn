@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bhkkxgqsmks02"]
 
-[ext_resource type="Script" uid="uid://bjomty5twa62f" path="res://Scene/level.gd" id="1_or6n4"]
+[ext_resource type="Script" uid="uid://bjomty5twa62f" path="res://Script/level.gd" id="1_or6n4"]
 [ext_resource type="PackedScene" uid="uid://l1bhryukeiwu" path="res://Scene/player.tscn" id="2_jnrmd"]
 [ext_resource type="Texture2D" uid="uid://cg211tk30p2ig" path="res://Sprite/BG/pixil-frame-0 (4).png" id="2_or6n4"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="2_tut6d"]
@@ -80,6 +80,7 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("13_k0fkb")
 
 [node name="Player" parent="." instance=ExtResource("2_jnrmd")]
-position = Vector2(94, 439)
+position = Vector2(992, 50)
 
 [node name="Fade_transition" parent="." instance=ExtResource("2_tut6d")]
+visible = false
