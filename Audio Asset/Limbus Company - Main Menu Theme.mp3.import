@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://xmoytaxipo7q"
+path="res://.godot/imported/Limbus Company - Main Menu Theme.mp3-15bac60a504a601d2dab153660cba1e1.mp3str"
+
+[deps]
+
+source_file="res://Audio Asset/Limbus Company - Main Menu Theme.mp3"
+dest_files=["res://.godot/imported/Limbus Company - Main Menu Theme.mp3-15bac60a504a601d2dab153660cba1e1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

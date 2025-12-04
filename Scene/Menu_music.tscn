@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba28t3xscv5c1"]
+
+[ext_resource type="AudioStream" uid="uid://xmoytaxipo7q" path="res://Audio Asset/Limbus Company - Main Menu Theme.mp3" id="1_aigmg"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_aigmg")
+autoplay = true

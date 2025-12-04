@@ -1,0 +1,128 @@
+[gd_scene load_steps=15 format=3 uid="uid://cqfap1i4ej4wv"]
+
+[ext_resource type="Script" uid="uid://cuwfawc85p8lw" path="res://main_menu.gd" id="1_ftydy"]
+[ext_resource type="Texture2D" uid="uid://cqqssecfftw8a" path="res://Sprite/BG/daniil-glushkov-8.jpg" id="2_ejkra"]
+[ext_resource type="PackedScene" uid="uid://ba28t3xscv5c1" path="res://Scene/Menu_music.tscn" id="2_klvvj"]
+[ext_resource type="Texture2D" uid="uid://bourb0l5nq1hw" path="res://Sprite/Button/Start_ng.png" id="2_s2f1d"]
+[ext_resource type="Texture2D" uid="uid://cgfypvepivij0" path="res://Sprite/Button/Start_g.png" id="3_ejkra"]
+[ext_resource type="Texture2D" uid="uid://t5hj0we3v2vi" path="res://Sprite/ske_menu/pixil-frame-0.png" id="4_47k5r"]
+[ext_resource type="Texture2D" uid="uid://dyp5q84ugotcj" path="res://Sprite/Button/Setting_ng.png" id="4_yok32"]
+[ext_resource type="Texture2D" uid="uid://dnbqso63bfwy5" path="res://Sprite/ske_menu/pixil-frame-0 (1).png" id="5_hag5k"]
+[ext_resource type="Texture2D" uid="uid://bht84b3fsl8ur" path="res://Sprite/Button/Setting_g.png" id="5_klvvj"]
+[ext_resource type="Texture2D" uid="uid://x3olr2qbr535" path="res://Sprite/Button/Quit_ng.png" id="6_47k5r"]
+[ext_resource type="Texture2D" uid="uid://b5y1nqtdn6occ" path="res://Sprite/BG/unnamed (1)-Photoroom.png" id="6_hag5k"]
+[ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="6_yok32"]
+[ext_resource type="Texture2D" uid="uid://u4msaiemy6q3" path="res://Sprite/Button/Quit_g.png" id="7_hag5k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ckpx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_47k5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hag5k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hag5k")
+}],
+"loop": true,
+"name": &"Skeleton Idle",
+"speed": 3.0
+}]
+
+[node name="Main Menu" type="Node2D"]
+script = ExtResource("1_ftydy")
+
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("2_klvvj")]
+position = Vector2(497.00003, 365)
+scale = Vector2(1.7627329, 1.77375)
+
+[node name="menu_bg" type="Sprite2D" parent="."]
+position = Vector2(444.00003, 365)
+scale = Vector2(1.7627329, 1.77375)
+texture = ExtResource("2_ejkra")
+
+[node name="Skeleton Menu" type="AnimatedSprite2D" parent="."]
+position = Vector2(1098.0001, 558.00006)
+scale = Vector2(0.4794922, 0.4794922)
+sprite_frames = SubResource("SpriteFrames_4ckpx")
+animation = &"Skeleton Idle"
+frame_progress = 0.39571202
+speed_scale = 0.75
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(647, 221.99998)
+scale = Vector2(0.5644532, 0.5644532)
+texture = ExtResource("6_hag5k")
+
+[node name="Button Manager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 535.0
+offset_top = 341.0
+offset_right = 583.0
+offset_bottom = 365.0
+
+[node name="Start" type="TextureButton" parent="Button Manager"]
+layout_mode = 0
+offset_left = -35.0
+offset_top = 34.0
+offset_right = 248.0
+offset_bottom = 170.0
+texture_normal = ExtResource("2_s2f1d")
+texture_pressed = ExtResource("3_ejkra")
+texture_hover = ExtResource("3_ejkra")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Setting" type="TextureButton" parent="Button Manager"]
+layout_mode = 0
+offset_left = -35.0
+offset_top = 124.0
+offset_right = 248.0
+offset_bottom = 267.0
+texture_normal = ExtResource("4_yok32")
+texture_pressed = ExtResource("5_klvvj")
+texture_hover = ExtResource("5_klvvj")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Quit" type="TextureButton" parent="Button Manager"]
+layout_mode = 0
+offset_left = -36.0
+offset_top = 222.0
+offset_right = 248.0
+offset_bottom = 364.0
+texture_normal = ExtResource("6_47k5r")
+texture_pressed = ExtResource("7_hag5k")
+texture_hover = ExtResource("7_hag5k")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+offset_left = 53.0
+offset_top = 89.0
+offset_right = 497.0
+offset_bottom = 641.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Setting"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fade_transition" parent="." instance=ExtResource("6_yok32")]
+
+[node name="Fade_timer" type="Timer" parent="Fade_transition"]
+
+[connection signal="pressed" from="Button Manager/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Button Manager/Setting" to="." method="_on_setting_pressed"]
+[connection signal="pressed" from="Button Manager/Quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="Fade_transition/Fade_timer" to="." method="_on_fade_timer_timeout"]

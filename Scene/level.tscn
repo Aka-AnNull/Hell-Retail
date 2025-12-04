@@ -1,0 +1,86 @@
+[gd_scene load_steps=16 format=3 uid="uid://bhkkxgqsmks02"]
+
+[ext_resource type="Script" uid="uid://bjomty5twa62f" path="res://Scene/level.gd" id="1_or6n4"]
+[ext_resource type="PackedScene" uid="uid://l1bhryukeiwu" path="res://Scene/player.tscn" id="2_jnrmd"]
+[ext_resource type="Texture2D" uid="uid://cg211tk30p2ig" path="res://Sprite/BG/pixil-frame-0 (4).png" id="2_or6n4"]
+[ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="2_tut6d"]
+[ext_resource type="Texture2D" uid="uid://dyd0hauobix3p" path="res://Sprite/shelf/Whatee_2.png" id="4_btxmf"]
+[ext_resource type="Texture2D" uid="uid://qrvq6cy48qkl" path="res://Sprite/shelf/Whatee_1.png" id="5_k0fkb"]
+[ext_resource type="Texture2D" uid="uid://ds783f5qpcoq5" path="res://Sprite/shelf/Whatee.png" id="6_3d31u"]
+[ext_resource type="Texture2D" uid="uid://lwa5fsbqpa0r" path="res://Sprite/shelf/What.png" id="7_55t6b"]
+[ext_resource type="Texture2D" uid="uid://df1okkpd38wds" path="res://Sprite/shelf/Shelf_2.png" id="8_slp34"]
+[ext_resource type="Texture2D" uid="uid://yqht2k51rpdf" path="res://Sprite/shelf/Shelf_1.png" id="9_ncqyi"]
+[ext_resource type="Texture2D" uid="uid://ddmoghbfcvuw0" path="res://Sprite/shelf/Untitled_11-19-2025_06-45-08_2.png" id="10_sxkop"]
+[ext_resource type="Texture2D" uid="uid://cqw13sj124hmx" path="res://Sprite/shelf/Untitled_11-19-2025_06-45-08_1.png" id="11_xqs5e"]
+[ext_resource type="Texture2D" uid="uid://dyb8pgncyvlfj" path="res://Sprite/shelf/Sh3lf_1.png" id="12_nibg2"]
+[ext_resource type="Texture2D" uid="uid://dfy10p0pdcway" path="res://Sprite/shelf/20251119_205617.png" id="13_k0fkb"]
+[ext_resource type="Texture2D" uid="uid://b410u1rw3nvt1" path="res://Sprite/shelf/Default_Shelf.png" id="13_ovno7"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_or6n4")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(639.99994, 360)
+scale = Vector2(3.9999998, 3.9999998)
+texture = ExtResource("2_or6n4")
+
+[node name="refil3" type="Sprite2D" parent="."]
+position = Vector2(97, 121.000015)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_btxmf")
+
+[node name="refil2" type="Sprite2D" parent="."]
+position = Vector2(98, 347)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_k0fkb")
+
+[node name="refil" type="Sprite2D" parent="."]
+position = Vector2(98, 586)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_3d31u")
+
+[node name="shelf_c3" type="Sprite2D" parent="."]
+position = Vector2(1192.9999, 115.99999)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_55t6b")
+
+[node name="shelf_c2" type="Sprite2D" parent="."]
+position = Vector2(1193, 367)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_slp34")
+
+[node name="shelf_c1" type="Sprite2D" parent="."]
+position = Vector2(1194, 617)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_ncqyi")
+
+[node name="shelf_r4" type="Sprite2D" parent="."]
+position = Vector2(744.00006, 378)
+scale = Vector2(0.41499996, 0.41499996)
+texture = ExtResource("10_sxkop")
+
+[node name="shelf_r3" type="Sprite2D" parent="."]
+position = Vector2(1018, 371)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("11_xqs5e")
+
+[node name="shelf_r2" type="Sprite2D" parent="."]
+position = Vector2(739, 585)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("12_nibg2")
+
+[node name="shelf_r1" type="Sprite2D" parent="."]
+position = Vector2(1016, 589)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("13_ovno7")
+
+[node name="counter" type="Sprite2D" parent="."]
+position = Vector2(629, 104)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("13_k0fkb")
+
+[node name="Player" parent="." instance=ExtResource("2_jnrmd")]
+position = Vector2(94, 439)
+
+[node name="Fade_transition" parent="." instance=ExtResource("2_tut6d")]
+visible = false
