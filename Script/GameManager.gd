@@ -8,13 +8,20 @@ var score = 0
 # LEVEL CONFIGURATION
 # We can tweak these numbers later to make the game harder!
 var level_data = {
-	1: {"goal_money": 50, "customer_speed": 1.0, "text": "Level 1: Opening Day"},
-	2: {"goal_money": 100, "customer_speed": 1.2, "text": "Level 2: Lunch Rush"},
-	3: {"goal_money": 150, "customer_speed": 1.5, "text": "Level 3: Weekend Sale"},
-	4: {"goal_money": 200, "customer_speed": 1.8, "text": "Level 4: Black Friday"},
-	5: {"goal_money": 300, "customer_speed": 2.0, "text": "Level 5: Holiday Season"},
-	6: {"goal_money": 400, "customer_speed": 2.5, "text": "Level 6: Total Chaos"},
-	7: {"goal_money": 500, "customer_speed": 3.0, "text": "Level 7: HELL RETAIL"}
+	1: {"goal_money": 50, "customer_speed": 1.0, "text": "Level 1:
+		'Opening Day'"},
+	2: {"goal_money": 100, "customer_speed": 1.2, "text": "Level 2: 
+		'Lunch Rush'"},
+	3: {"goal_money": 150, "customer_speed": 1.5, "text": "Level 3: 
+		'Weekend Sale'"},
+	4: {"goal_money": 200, "customer_speed": 1.8, "text": "Level 4: 
+		'Black Friday'"},
+	5: {"goal_money": 300, "customer_speed": 2.0, "text": "Level 5: 
+		'Holiday Season'"},
+	6: {"goal_money": 400, "customer_speed": 2.5, "text": "Level 6: 
+		'Total Chaos'"},
+	7: {"goal_money": 500, "customer_speed": 3.0, "text": "Level 7: 
+		'HELL RETAIL'"}
 }
 
 # SCENE SWITCHING FUNCTIONS

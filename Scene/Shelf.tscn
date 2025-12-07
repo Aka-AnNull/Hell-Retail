@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://tws0wveogunt"]
+
+[ext_resource type="Script" uid="uid://c2o4ox6mv7eee" path="res://Script/shelf.gd" id="1_dc3cn"]
+[ext_resource type="Texture2D" uid="uid://b410u1rw3nvt1" path="res://Sprite/shelf/Default_Shelf.png" id="1_kbu8c"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="3_442f4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dc3cn"]
+size = Vector2(216, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_owmnp"]
+size = Vector2(192, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vbnbp"]
+font = ExtResource("3_442f4")
+font_size = 47
+
+[node name="Shelf" type="Area2D"]
+script = ExtResource("1_dc3cn")
+
+[node name="DefaultShelf" type="Sprite2D" parent="."]
+position = Vector2(0, -74)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_kbu8c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13.5)
+shape = SubResource("RectangleShape2D_dc3cn")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, -9.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_owmnp")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+y_sort_enabled = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -23.0
+offset_top = -149.0
+offset_right = 24.0
+offset_bottom = -111.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+text = "0/6"
+label_settings = SubResource("LabelSettings_vbnbp")

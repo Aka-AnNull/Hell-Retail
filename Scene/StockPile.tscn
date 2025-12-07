@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://csch13p5msvkg"]
+
+[ext_resource type="Texture2D" uid="uid://ds783f5qpcoq5" path="res://Sprite/shelf/Whatee.png" id="1_b263i"]
+[ext_resource type="Script" uid="uid://c3q3lffqxiy62" path="res://Script/stock_pile.gd" id="1_wl36f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wl36f"]
+size = Vector2(171, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcfx3"]
+size = Vector2(154, 36)
+
+[node name="StockPile" type="Area2D"]
+script = ExtResource("1_wl36f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, -15)
+shape = SubResource("RectangleShape2D_wl36f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4, -76)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_b263i")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-4, -76)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 58)
+shape = SubResource("RectangleShape2D_qcfx3")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
