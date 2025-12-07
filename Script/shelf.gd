@@ -36,3 +36,11 @@ func update_visuals():
 	# Update the text label (e.g., "2/6")
 	if label:
 		label.text = str(current_stock) + "/" + str(max_stock)
+		
+func ai_take_item():
+	if current_stock > 0:
+		current_stock -= 1
+		update_visuals()
+		return true # Tell the Ghost "Yes, you got it"
+	else:
+		return false # Tell the Ghost "No, it's empty"

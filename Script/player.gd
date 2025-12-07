@@ -10,6 +10,7 @@ extends CharacterBody2D
 var is_dashing : bool = false
 var can_dash : bool = true
 var is_holding_item : bool = false
+var is_working : bool = false
 
 # --- NODE REFERENCES ---
 @onready var anim = $AnimatedSprite2D
@@ -21,6 +22,10 @@ func _ready():
 	dash_timer.timeout.connect(_on_dash_timer_timeout)
 
 func _physics_process(_delta):
+	if is_working:
+		velocity = Vector2.ZERO # Stop sliding
+		move_and_slide()
+		return
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
 	if Input.is_action_just_pressed("ui_accept") and can_dash and direction != Vector2.ZERO:
@@ -53,9 +58,6 @@ func _on_dash_timer_timeout():
 	can_dash = true
 
 func update_animation(direction):
-	#this line to see what the player thinks is happening
-	print("Holding: ", is_holding_item, " | Anim: ", anim.animation)
-
 	if direction != Vector2.ZERO:
 		# MOVING
 		if is_holding_item:
@@ -83,3 +85,13 @@ func attempt_interaction():
 		if area.has_method("interact"):
 			area.interact(self)
 			return
+
+func freeze_for_work(duration):
+	is_working = true
+	can_dash = false # Prevent dashing away
+	print("Player: Working hard...")
+	# Wait for the time to pass
+	await get_tree().create_timer(duration).timeout
+	is_working = false
+	can_dash = true
+	print("Player: Done working!")

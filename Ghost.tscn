@@ -1,0 +1,72 @@
+[gd_scene load_steps=12 format=3 uid="uid://cdcleupalwlhf"]
+
+[ext_resource type="Script" uid="uid://f5p0sntfax5c" path="res://ghost.gd" id="1_ljs81"]
+[ext_resource type="Texture2D" uid="uid://cua1bjanq7x8h" path="res://Sprite/Customer/Ghost/Ghost1.png" id="2_sr7gi"]
+[ext_resource type="Texture2D" uid="uid://cxgtbsnu1pqpd" path="res://Sprite/Customer/Ghost/Ghost3.png" id="3_sbgdf"]
+[ext_resource type="Texture2D" uid="uid://x8i5v1hsg0s4" path="res://Sprite/Customer/Ghost/Ghost4.png" id="4_mrxix"]
+[ext_resource type="Texture2D" uid="uid://6u8kqvpaksu4" path="res://Sprite/Customer/Ghost/Ghost5.png" id="5_a80t0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ga4t"]
+atlas = ExtResource("2_sr7gi")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrida"]
+atlas = ExtResource("3_sbgdf")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvsgc"]
+atlas = ExtResource("4_mrxix")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxs5g"]
+atlas = ExtResource("5_a80t0")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xvby2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ga4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ga4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrida")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvsgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrida")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxs5g")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uknkg"]
+radius = 7.28011
+
+[node name="Ghost" type="CharacterBody2D"]
+script = ExtResource("1_ljs81")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -54)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_xvby2")
+animation = &"idle"
+frame_progress = 0.65961707
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uknkg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 30.0
+debug_enabled = true
+
+[node name="PatienceTimer" type="Timer" parent="."]
+one_shot = true
