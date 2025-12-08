@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqw13sj124hmx"
-path="res://.godot/imported/Untitled_11-19-2025_06-45-08_1.png-f3844c7bfec5ff2996d1a4be64a17797.ctex"
+uid="uid://bxlulmhdyj4b5"
+path="res://.godot/imported/pixelated-cave-entrance-s17m36l2wfzrfscb.png-416ed97d20527b6ffc0fddd6bb779c12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite/shelf/Untitled_11-19-2025_06-45-08_1.png"
-dest_files=["res://.godot/imported/Untitled_11-19-2025_06-45-08_1.png-f3844c7bfec5ff2996d1a4be64a17797.ctex"]
+source_file="res://Sprite/BG/pixelated-cave-entrance-s17m36l2wfzrfscb.png"
+dest_files=["res://.godot/imported/pixelated-cave-entrance-s17m36l2wfzrfscb.png-416ed97d20527b6ffc0fddd6bb779c12.ctex"]
 
 [params]
 

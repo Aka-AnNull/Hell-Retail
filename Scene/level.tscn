@@ -1,22 +1,44 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhkkxgqsmks02"]
+[gd_scene load_steps=24 format=3 uid="uid://bhkkxgqsmks02"]
 
 [ext_resource type="Script" uid="uid://bjomty5twa62f" path="res://Script/level.gd" id="1_or6n4"]
+[ext_resource type="Texture2D" uid="uid://dhhnfvhgb6j68" path="res://Sprite/BG/BG.png" id="2_3qma8"]
 [ext_resource type="PackedScene" uid="uid://l1bhryukeiwu" path="res://Scene/player.tscn" id="2_jnrmd"]
-[ext_resource type="Texture2D" uid="uid://cg211tk30p2ig" path="res://Sprite/BG/pixil-frame-0 (4).png" id="2_or6n4"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="2_tut6d"]
+[ext_resource type="Script" uid="uid://ddvwicdjtcvm4" path="res://Scene/spawner.gd" id="3_slp34"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="6_3d31u"]
 [ext_resource type="PackedScene" uid="uid://tws0wveogunt" path="res://Scene/Shelf.tscn" id="6_p7rx0"]
+[ext_resource type="Texture2D" uid="uid://qrvq6cy48qkl" path="res://Sprite/shelf/Whatee_1.png" id="7_60ewi"]
 [ext_resource type="Script" uid="uid://cqbffiaqbawns" path="res://Scene/cashier_zone.gd" id="7_hdt71"]
-[ext_resource type="PackedScene" uid="uid://cdcleupalwlhf" path="res://Ghost.tscn" id="7_iysjp"]
+[ext_resource type="PackedScene" uid="uid://cdcleupalwlhf" path="res://Scene/Ghost.tscn" id="7_iysjp"]
+[ext_resource type="Texture2D" uid="uid://dyd0hauobix3p" path="res://Sprite/shelf/Whatee_2.png" id="8_k0fkb"]
+[ext_resource type="Texture2D" uid="uid://bxlulmhdyj4b5" path="res://Sprite/BG/pixelated-cave-entrance-s17m36l2wfzrfscb.png" id="9_3qma8"]
+[ext_resource type="Texture2D" uid="uid://dyb8pgncyvlfj" path="res://Sprite/shelf/Sh3lf_1.png" id="10_7lp0r"]
+[ext_resource type="Texture2D" uid="uid://souoqcu88ft8" path="res://Sprite/shelf/Sh3lf_2.png" id="11_btxmf"]
+[ext_resource type="Texture2D" uid="uid://dxers6w81u71e" path="res://Sprite/shelf/Sh3lf_3.png" id="11_k0fkb"]
 [ext_resource type="Texture2D" uid="uid://dfy10p0pdcway" path="res://Sprite/shelf/20251119_205617.png" id="13_k0fkb"]
 [ext_resource type="PackedScene" uid="uid://csch13p5msvkg" path="res://Scene/StockPile.tscn" id="13_pivpx"]
+[ext_resource type="PackedScene" uid="uid://dt6myf7lkv4tw" path="res://Scene/UserInterface.tscn" id="14_55t6b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_60ewi"]
+size = Vector2(377.5, 1055.0001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3qma8"]
+size = Vector2(19, 431)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_637vb"]
-size = Vector2(174, 215)
+size = Vector2(242, 215)
+
+[sub_resource type="LabelSettings" id="LabelSettings_55t6b"]
+line_spacing = 0.0
+font = ExtResource("6_3d31u")
+font_size = 34
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_637vb"]
-vertices = PackedVector2Array(1144.7969, 630.75, 1177.0469, 192, 1183.7031, 646, 1144.7422, 646, 1144.7188, 644.3281, 1177.7109, 143.20313, 1142.2969, 176.22656, 1176.3125, 143.21875, 953.9375, 70.25, 574.60156, 114.64844, 553.3594, 117.10156, 551.03906, 117.36719, 552.21094, 91.67969, 954.3906, 39.757813, 555.3906, 647.8828, 553.7422, 628.0703, 557.6875, 628.09375, 574.7969, 647.77344, 582.3594, 628.21875, 582.6328, 647.71875, 582.6406, 648.3672, 1002.3203, 176.84375, 1002.3281, 177, 952.3125, 177, 1142.0938, 141.46094, 1176.2734, 140.53125, 1142.1094, 143.71094, 1002.1797, 145.50781, 954.7031, 19.523438, 997.7031, 18.46875)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 1, 0, 6, 7), PackedInt32Array(8, 9, 10, 11, 12, 13), PackedInt32Array(14, 15, 16, 17), PackedInt32Array(18, 19, 20, 17, 16, 10, 9), PackedInt32Array(21, 22, 23, 8), PackedInt32Array(24, 25, 7, 26), PackedInt32Array(26, 7, 6), PackedInt32Array(27, 26, 6, 21), PackedInt32Array(28, 29, 27, 21, 8, 13), PackedInt32Array(19, 18, 0, 4)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(935, 0, 1017, -2, 1024, 197, 932, 197), PackedVector2Array(964, 126, 1198, 123, 1197, 196, 967, 197), PackedVector2Array(1196, 120, 1204, 666, 1125, 666, 1122, 122), PackedVector2Array(1200, 664, 537, 668, 532, 608, 1198, 611), PackedVector2Array(538, 665, 533, 75, 594, 75, 603, 670), PackedVector2Array(533, 74, 959, 19, 1017, 30, 1000, 85, 530, 140)])
+vertices = PackedVector2Array(1219.9531, 480.8672, 1197.2969, 461.85938, 1219.7266, 461.57813, 1221.2813, 461.60938, 1222.5938, 480.8828, 555.3906, 647.96875, 553.75, 628.1797, 558, 628.21875, 577.02344, 647.9375, 579.64844, 477.90625, 582.2578, 628.4297, 582.5703, 647.9375, 582.5703, 648.3594, 558, 144.40625, 1003.0078, 176.72656, 1003.02344, 177, 952.3125, 177, 952.89844, 137.42188, 1186.6797, 142.75, 1186.6016, 140.28906, 1216.1797, 140.71875, 1216.2031, 142.3125, 1216.5938, 175.11719, 1187.8438, 175.38281, 546.5703, 144.60938, 547.4375, 114.07031, 953.2422, 115.67969, 1221.6328, 633.72656, 1222.2266, 633.72656, 1221.7734, 646.1719, 1221, 646.1406, 1202.9766, 633.64844, 1197.9219, 480.78125, 1219.5469, 142.25781, 1220.4375, 175.10156, 580.6172, 459.95313, 1221, 647.02344, 577.03125, 144.09375, 1001.1406, 115.86719, 1012.8125, 145.28906, 1012.3203, 115.90625, 997.7031, 18.46875, 954.7031, 19.523438)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 8, 7, 13), PackedInt32Array(14, 15, 16, 17), PackedInt32Array(18, 19, 20, 21, 22, 23), PackedInt32Array(13, 24, 25, 26), PackedInt32Array(27, 28, 29, 30), PackedInt32Array(0, 27, 30, 31, 32, 1), PackedInt32Array(33, 34, 22, 21), PackedInt32Array(1, 32, 9, 35), PackedInt32Array(31, 30, 36, 11, 10), PackedInt32Array(35, 9, 13, 37), PackedInt32Array(17, 37, 13, 26, 38), PackedInt32Array(22, 2, 1, 23), PackedInt32Array(18, 23, 14, 39), PackedInt32Array(40, 39, 14, 17, 38), PackedInt32Array(41, 38, 26, 42)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(935, 0, 1017, -2, 1024, 197, 932, 197), PackedVector2Array(964, 126, 1239, 122, 1241, 195, 967, 197), PackedVector2Array(1236, 121, 1242, 667, 1184, 665, 1166, 120), PackedVector2Array(1241, 667, 537, 668, 532, 608, 1243, 614), PackedVector2Array(538, 665, 538, 144, 597, 141, 600.39136, 440.0069, 1240, 442, 1244, 501, 600, 498, 603, 670), PackedVector2Array(528, 94, 1032, 96, 1033, 156, 976.84503, 156.99683, 526, 165)])
 agent_radius = 20.0
 
 [node name="Level" type="Node2D"]
@@ -24,59 +46,149 @@ y_sort_enabled = true
 script = ExtResource("1_or6n4")
 
 [node name="BG" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(639.99994, 360)
-scale = Vector2(3.9999998, 3.9999998)
-texture = ExtResource("2_or6n4")
+z_index = -2
+position = Vector2(587.49994, 462)
+scale = Vector2(1.2804765, 1.5305785)
+texture = ExtResource("2_3qma8")
+metadata/_edit_lock_ = true
 
-[node name="Cashier" type="Sprite2D" parent="."]
-position = Vector2(452, 107.000015)
+[node name="CashierPic" type="StaticBody2D" parent="."]
+position = Vector2(484, 311)
+
+[node name="Sprite2D" type="Sprite2D" parent="CashierPic"]
+z_index = -1
+position = Vector2(-47, -107.99998)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("13_k0fkb")
+metadata/_edit_lock_ = true
 
-[node name="DoorPosition" type="Marker2D" parent="."]
-position = Vector2(978, 39)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CashierPic"]
+position = Vector2(0, -106)
+scale = Vector2(0.19999996, 0.19999996)
+shape = SubResource("RectangleShape2D_60ewi")
+metadata/_edit_lock_ = true
 
-[node name="Marker1" type="Marker2D" parent="."]
-position = Vector2(981, 159)
+[node name="Map Border" type="StaticBody2D" parent="."]
+position = Vector2(65, 45)
+collision_layer = 255
 
-[node name="Marker2" type="Marker2D" parent="."]
-position = Vector2(1150, 158)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Map Border"]
+position = Vector2(-65, -45)
+polygon = PackedVector2Array(-93, -109, 1401, -111, 1403, 834, -106, 845, -103, 720, 1280, 720, 1280, 100, 0, 100, 0, 720, -102, 699)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map Border"]
+position = Vector2(262, 459)
+shape = SubResource("RectangleShape2D_3qma8")
+
+[node name="PixelatedCaveEntranceS17m36l2Wfzrfscb" type="Sprite2D" parent="."]
+position = Vector2(982, 31.000004)
+scale = Vector2(0.26647833, 0.30725622)
+texture = ExtResource("9_3qma8")
+metadata/_edit_lock_ = true
 
 [node name="CashierZone" type="Area2D" parent="."]
-position = Vector2(508, 111)
-collision_mask = 3
+position = Vector2(506, 209.50002)
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("7_hdt71")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CashierZone"]
-position = Vector2(-1, 0)
+position = Vector2(-15, -7.5000153)
 shape = SubResource("RectangleShape2D_637vb")
-metadata/_edit_lock_ = true
 
 [node name="WorkTimer" type="Timer" parent="CashierZone"]
 wait_time = 2.0
 one_shot = true
 
+[node name="PromptLabel" type="Label" parent="CashierZone"]
+visible = false
+z_index = 1
+offset_left = -80.0
+offset_top = -29.500015
+offset_right = 44.0
+offset_bottom = -1.5000153
+text = "[E] interact"
+label_settings = SubResource("LabelSettings_55t6b")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(-4, 12)
+navigation_polygon = SubResource("NavigationPolygon_637vb")
+navigation_layers = 3
+
+[node name="DoorPosition" type="Marker2D" parent="."]
+position = Vector2(977, 19)
+
+[node name="Marker1" type="Marker2D" parent="."]
+position = Vector2(978, 124)
+
+[node name="Marker2" type="Marker2D" parent="."]
+position = Vector2(1200, 157)
+
 [node name="Stock1" parent="." instance=ExtResource("13_pivpx")]
 y_sort_enabled = true
-position = Vector2(77, 420)
+position = Vector2(77, 142)
 
-[node name="Player" parent="." instance=ExtResource("2_jnrmd")]
+[node name="Stock2" parent="." instance=ExtResource("13_pivpx")]
 y_sort_enabled = true
-position = Vector2(291, 420)
+position = Vector2(250, 142)
+item_name = "Coke"
+stock_image = ExtResource("7_60ewi")
+
+[node name="Stock3" parent="." instance=ExtResource("13_pivpx")]
+y_sort_enabled = true
+position = Vector2(77, 252)
+item_name = "Sprite"
+stock_image = ExtResource("8_k0fkb")
+
+[node name="Stock4" parent="." instance=ExtResource("13_pivpx")]
+y_sort_enabled = true
+position = Vector2(77, 362)
+item_name = "Pepsi"
+stock_image = ExtResource("7_60ewi")
 
 [node name="Shelf1" parent="." instance=ExtResource("6_p7rx0")]
 y_sort_enabled = true
-position = Vector2(756, 621)
+position = Vector2(750, 630)
 
-[node name="Ghost" parent="." instance=ExtResource("7_iysjp")]
+[node name="Shelf2" parent="." instance=ExtResource("6_p7rx0")]
 y_sort_enabled = true
-position = Vector2(981, 41)
-collision_layer = 2
-collision_mask = 0
+position = Vector2(750, 460)
+required_item = "Coke"
+shelf_image = ExtResource("10_7lp0r")
+
+[node name="Shelf3" parent="." instance=ExtResource("6_p7rx0")]
+y_sort_enabled = true
+position = Vector2(1030, 460)
+required_item = "Sprite"
+shelf_image = ExtResource("11_btxmf")
+
+[node name="Shelf4" parent="." instance=ExtResource("6_p7rx0")]
+y_sort_enabled = true
+position = Vector2(1030, 630)
+required_item = "Pepsi"
+shelf_image = ExtResource("11_k0fkb")
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(979, -18)
+script = ExtResource("3_slp34")
+customer_scene = ExtResource("7_iysjp")
+spawn_interval = 8.0
+
+[node name="Timer" type="Timer" parent="Spawner"]
+
+[node name="UI_Layer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI_Layer" instance=ExtResource("14_55t6b")]
+offset_left = 612.0
+offset_top = 8.0
+offset_right = 652.0
+offset_bottom = 48.0
+
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("2_jnrmd")]
+y_sort_enabled = true
+position = Vector2(929, 280)
+collision_layer = 5
 
 [node name="Fade_transition" parent="." instance=ExtResource("2_tut6d")]
 visible = false
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_637vb")
