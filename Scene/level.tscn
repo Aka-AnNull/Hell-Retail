@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://bhkkxgqsmks02"]
+[gd_scene load_steps=29 format=3 uid="uid://bhkkxgqsmks02"]
 
 [ext_resource type="Script" uid="uid://bjomty5twa62f" path="res://Script/level.gd" id="1_or6n4"]
 [ext_resource type="Texture2D" uid="uid://dhhnfvhgb6j68" path="res://Sprite/BG/BG.png" id="2_3qma8"]
 [ext_resource type="PackedScene" uid="uid://l1bhryukeiwu" path="res://Scene/player.tscn" id="2_jnrmd"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="2_tut6d"]
+[ext_resource type="Texture2D" uid="uid://capkovydn2v7g" path="res://Sprite/shelf/What_7.png" id="3_ovno7"]
 [ext_resource type="Script" uid="uid://ddvwicdjtcvm4" path="res://Scene/spawner.gd" id="3_slp34"]
 [ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="6_3d31u"]
 [ext_resource type="PackedScene" uid="uid://tws0wveogunt" path="res://Scene/Shelf.tscn" id="6_p7rx0"]
@@ -11,11 +12,15 @@
 [ext_resource type="Script" uid="uid://cqbffiaqbawns" path="res://Scene/cashier_zone.gd" id="7_hdt71"]
 [ext_resource type="PackedScene" uid="uid://cdcleupalwlhf" path="res://Scene/Ghost.tscn" id="7_iysjp"]
 [ext_resource type="Texture2D" uid="uid://dyd0hauobix3p" path="res://Sprite/shelf/Whatee_2.png" id="8_k0fkb"]
+[ext_resource type="Texture2D" uid="uid://boscf57ldhp56" path="res://Sprite/shelf/Whatee_4.png" id="8_sxkop"]
 [ext_resource type="Texture2D" uid="uid://bxlulmhdyj4b5" path="res://Sprite/BG/pixelated-cave-entrance-s17m36l2wfzrfscb.png" id="9_3qma8"]
 [ext_resource type="Texture2D" uid="uid://dyb8pgncyvlfj" path="res://Sprite/shelf/Sh3lf_1.png" id="10_7lp0r"]
+[ext_resource type="Texture2D" uid="uid://bsll1u0heymi7" path="res://Sprite/shelf/Whatee_3.png" id="10_ncqyi"]
+[ext_resource type="Texture2D" uid="uid://wuijymxsi3bi" path="res://Sprite/shelf/Whatee_6.png" id="10_ovno7"]
 [ext_resource type="Texture2D" uid="uid://souoqcu88ft8" path="res://Sprite/shelf/Sh3lf_2.png" id="11_btxmf"]
 [ext_resource type="Texture2D" uid="uid://dxers6w81u71e" path="res://Sprite/shelf/Sh3lf_3.png" id="11_k0fkb"]
-[ext_resource type="Texture2D" uid="uid://dfy10p0pdcway" path="res://Sprite/shelf/20251119_205617.png" id="13_k0fkb"]
+[ext_resource type="Texture2D" uid="uid://q3ksa58jrlbx" path="res://Sprite/shelf/Whatee_5.png" id="12_f43hl"]
+[ext_resource type="Texture2D" uid="uid://dvbk4k81wqsuf" path="res://Sprite/shelf/Whatee_7.png" id="13_gq3if"]
 [ext_resource type="PackedScene" uid="uid://csch13p5msvkg" path="res://Scene/StockPile.tscn" id="13_pivpx"]
 [ext_resource type="PackedScene" uid="uid://dt6myf7lkv4tw" path="res://Scene/UserInterface.tscn" id="14_55t6b"]
 
@@ -57,10 +62,9 @@ position = Vector2(484, 311)
 
 [node name="Sprite2D" type="Sprite2D" parent="CashierPic"]
 z_index = -1
-position = Vector2(-47, -107.99998)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("13_k0fkb")
-metadata/_edit_lock_ = true
+position = Vector2(-9.000007, -99.99999)
+scale = Vector2(0.069843754, 0.069843754)
+texture = ExtResource("3_ovno7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CashierPic"]
 position = Vector2(0, -106)
@@ -70,7 +74,6 @@ metadata/_edit_lock_ = true
 
 [node name="Map Border" type="StaticBody2D" parent="."]
 position = Vector2(65, 45)
-collision_layer = 255
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Map Border"]
 position = Vector2(-65, -45)
@@ -94,7 +97,7 @@ script = ExtResource("7_hdt71")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CashierZone"]
-position = Vector2(-15, -7.5000153)
+position = Vector2(-14, -3.5)
 shape = SubResource("RectangleShape2D_637vb")
 
 [node name="WorkTimer" type="Timer" parent="CashierZone"]
@@ -103,7 +106,7 @@ one_shot = true
 
 [node name="PromptLabel" type="Label" parent="CashierZone"]
 visible = false
-z_index = 1
+z_index = 2
 offset_left = -80.0
 offset_top = -29.500015
 offset_right = 44.0
@@ -120,14 +123,15 @@ navigation_layers = 3
 position = Vector2(977, 19)
 
 [node name="Marker1" type="Marker2D" parent="."]
-position = Vector2(978, 124)
+position = Vector2(975, 184)
 
 [node name="Marker2" type="Marker2D" parent="."]
-position = Vector2(1200, 157)
+position = Vector2(1197, 208)
 
 [node name="Stock1" parent="." instance=ExtResource("13_pivpx")]
 y_sort_enabled = true
 position = Vector2(77, 142)
+stock_image = ExtResource("8_sxkop")
 
 [node name="Stock2" parent="." instance=ExtResource("13_pivpx")]
 y_sort_enabled = true
@@ -139,13 +143,31 @@ stock_image = ExtResource("7_60ewi")
 y_sort_enabled = true
 position = Vector2(77, 252)
 item_name = "Sprite"
-stock_image = ExtResource("8_k0fkb")
+stock_image = ExtResource("10_ovno7")
 
 [node name="Stock4" parent="." instance=ExtResource("13_pivpx")]
 y_sort_enabled = true
 position = Vector2(77, 362)
 item_name = "Pepsi"
-stock_image = ExtResource("7_60ewi")
+stock_image = ExtResource("10_ncqyi")
+
+[node name="Stock5" parent="." instance=ExtResource("13_pivpx")]
+y_sort_enabled = true
+position = Vector2(77, 472)
+item_name = "Fanta"
+stock_image = ExtResource("12_f43hl")
+
+[node name="Stock6" parent="." instance=ExtResource("13_pivpx")]
+y_sort_enabled = true
+position = Vector2(77, 582)
+item_name = "Est"
+stock_image = ExtResource("13_gq3if")
+
+[node name="Stock7" parent="." instance=ExtResource("13_pivpx")]
+y_sort_enabled = true
+position = Vector2(77, 692)
+item_name = "Sarsi"
+stock_image = ExtResource("8_k0fkb")
 
 [node name="Shelf1" parent="." instance=ExtResource("6_p7rx0")]
 y_sort_enabled = true
@@ -173,7 +195,6 @@ shelf_image = ExtResource("11_k0fkb")
 position = Vector2(979, -18)
 script = ExtResource("3_slp34")
 customer_scene = ExtResource("7_iysjp")
-spawn_interval = 8.0
 
 [node name="Timer" type="Timer" parent="Spawner"]
 
@@ -192,3 +213,4 @@ collision_layer = 5
 
 [node name="Fade_transition" parent="." instance=ExtResource("2_tut6d")]
 visible = false
+z_index = 2

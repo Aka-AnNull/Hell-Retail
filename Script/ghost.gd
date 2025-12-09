@@ -2,154 +2,241 @@ extends CharacterBody2D
 
 # --- CONFIGURATION ---
 @export var move_speed : float = 120.0
-@export var stop_distance : float = 20.0 
+@export var stop_distance : float = 50.0 
 
-# --- SHOPPING LIST (ITEM NAMES) ---
-var shopping_list = ["Cola", "Coke", "Sprite", "Pepsi"] 
+# --- QUEUE SETTINGS ---
+@export var line_spacing : float = 60.0
+@export var line_direction : Vector2 = Vector2.DOWN
+@export var max_queue_size : int = 8
 
 # --- NODES ---
 @onready var nav_agent = $NavigationAgent2D
 @onready var anim = $AnimatedSprite2D
 
+# --- UI ---
+var patience_bar : ProgressBar = null
+
 # --- STATE MACHINE ---
-enum State { 
-	TO_MARKER_1_ENTER, 
-	TO_MARKER_2, 
-	TO_SHELF, 
-	SEARCHING, 
-	TO_CASHIER, 
-	WAITING_AT_CASHIER, 
-	TO_MARKER_1_EXIT, 
-	TO_DOOR_EXIT 
-}
+enum State { TO_MARKER_1_ENTER, TO_MARKER_2, TO_SHELF, SEARCHING, TO_CASHIER, WAITING_AT_CASHIER, TO_MARKER_1_EXIT, TO_DOOR_EXIT }
 var current_state = State.TO_MARKER_1_ENTER
 
 # --- MEMORY ---
-var desired_item_name = ""   # "Cola"
-var target_shelf_node = null # The actual node (Shelf1)
+var desired_item_name = ""   
+var target_shelf_node = null 
+var cashier_node = null 
+var patience_timer : float = 0.0
+var is_served : bool = false 
 
-# --- FLOATING VISUAL ---
+# --- FLOATING ---
 var float_time = 0.0
 
 func _ready():
-	anim.play("idle")
+	anim.play("idle") # Start Happy
+	setup_patience_bar()
 	
-	# 1. SETUP: Pick a random ITEM
+	cashier_node = get_parent().find_child("CashierZone", true, false)
+	
+	# SHOPPING LIST
+	var shopping_list = ["Cola", "Coke", "Sprite", "Pepsi"] 
 	desired_item_name = shopping_list.pick_random()
-	print("Ghost: I want to buy " + desired_item_name)
-	
-	# 2. LOCATE: Find which shelf has this item
 	target_shelf_node = find_shelf_for_item(desired_item_name)
 	
 	if target_shelf_node == null:
-		print("Ghost: I wanted " + desired_item_name + " but no shelf has it! Leaving.")
+		GameManager.on_customer_left()
 		queue_free()
 		return
 
-	# 3. SPAWN: Teleport to Door
+	# SPAWN AT DOOR
 	var door = get_parent().find_child("DoorPosition", true, false)
-	if door: global_position = door.global_position 
-	
-	# 4. START: Wait random time then go
-	await get_tree().create_timer(randf_range(0.1, 2.0)).timeout
+	if door: 
+		global_position = door.global_position 
+	else:
+		print("Ghost Error: Could not find 'DoorPosition' node!")
+
+	# START
+	await get_tree().create_timer(1.0).timeout
 	go_to_node("Marker1", State.TO_MARKER_1_ENTER)
 
+func _exit_tree():
+	if GameManager.has_method("leave_queue"):
+		GameManager.leave_queue(self)
+
 func _physics_process(delta):
-	# Float Effect
+	# If served (frozen), stop logic
+	if is_served: return
+
+	# Float visual
 	float_time += delta * 5.0
 	anim.position.y = sin(float_time) * 5.0
 
-	# STOP IF BUSY
-	if current_state == State.SEARCHING or current_state == State.WAITING_AT_CASHIER:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		if current_state == State.WAITING_AT_CASHIER: anim.flip_h = true 
-		return
+	# --- QUEUE UPDATE ---
+	if current_state == State.TO_CASHIER or current_state == State.WAITING_AT_CASHIER:
+		update_queue_position()
+		
+	# --- PATIENCE LOGIC ---
+	if current_state == State.WAITING_AT_CASHIER:
+		process_patience(delta)
+	elif current_state != State.SEARCHING: 
+		if patience_bar: patience_bar.visible = false
 
-	# CHECK ARRIVAL
+	if current_state == State.SEARCHING: return
+	
+	# --- INCH FORWARD LOGIC ---
+	if current_state == State.WAITING_AT_CASHIER:
+		var dist_to_slot = global_position.distance_to(nav_agent.target_position)
+		if dist_to_slot < 10.0:
+			velocity = Vector2.ZERO
+			move_and_slide()
+			return
+
+	# --- ARRIVAL CHECK ---
 	var dist = global_position.distance_to(nav_agent.target_position)
-	var required_dist = 60.0 if current_state == State.TO_CASHIER else stop_distance
+	var required_dist = stop_distance + 10.0
 	
 	if dist < required_dist:
 		handle_arrival()
 		return
 
-	# MOVE
+	# --- MOVEMENT ---
 	var next_pos = nav_agent.get_next_path_position()
-	var direction = global_position.direction_to(next_pos)
-	velocity = direction * move_speed
+	if next_pos == Vector2.ZERO: return
+	velocity = global_position.direction_to(next_pos) * move_speed
 	move_and_slide()
+	anim.flip_h = velocity.x < 0
+
+# --- SERVED LOGIC ---
+func get_served():
+	if is_served: return 
 	
-	# FACE DIRECTION
-	if direction.x < 0: anim.flip_h = true
-	elif direction.x > 0: anim.flip_h = false
+	print("Ghost: Payment started... Waiting 2s.")
+	
+	is_served = true 
+	patience_timer = 0.0
+	if patience_bar: patience_bar.visible = false
+	
+	# RESET ANIMATION: If they were angry, make them happy again
+	anim.play("idle") 
+	
+	await get_tree().create_timer(2.0).timeout
+	
+	if GameManager.has_method("leave_queue"):
+		GameManager.leave_queue(self)
+	
+	print("Ghost: Payment done. Leaving!")
+	current_state = State.TO_MARKER_1_EXIT
+	is_served = false 
+	anim.flip_h = false
+	go_to_node("Marker1", State.TO_MARKER_1_EXIT)
 
 func handle_arrival():
-	velocity = Vector2.ZERO 
-	
+	velocity = Vector2.ZERO
 	match current_state:
 		State.TO_MARKER_1_ENTER:
-			print("Ghost: Wait 5s at entrance...")
 			current_state = State.SEARCHING
-			await get_tree().create_timer(5.0).timeout
+			await get_tree().create_timer(2.0).timeout
 			go_to_node("Marker2", State.TO_MARKER_2)
-			
 		State.TO_MARKER_2:
-			print("Ghost: Wait 3s at hallway...")
 			current_state = State.SEARCHING
-			await get_tree().create_timer(3.0).timeout
-			
-			# Go to the shelf found in _ready
+			await get_tree().create_timer(1.0).timeout
 			go_to_target_shelf()
-			
 		State.TO_SHELF:
-			print("Ghost: Arrived at " + desired_item_name + " shelf.")
 			current_state = State.SEARCHING
 			start_searching_logic()
-			
 		State.TO_CASHIER:
-			print("Ghost: In line.")
+			print("Ghost: Arrived at line.")
 			current_state = State.WAITING_AT_CASHIER
-			
+			patience_timer = 0.0
 		State.TO_MARKER_1_EXIT:
 			go_to_node("DoorPosition", State.TO_DOOR_EXIT)
-			
 		State.TO_DOOR_EXIT:
-			queue_free() 
+			GameManager.on_customer_left()
+			queue_free()
 
-# --- SMART LOGIC ---
+# --- QUEUE & LOGIC ---
 
-func find_shelf_for_item(item_name):
-	# Look through all nodes in the Level
-	var all_nodes = get_parent().get_children()
-	for node in all_nodes:
-		# Check if it has the variable 'required_item' (It's a Shelf)
-		if "required_item" in node:
-			if node.required_item == item_name:
-				print("Ghost: Found " + item_name + " at " + node.name)
-				return node
-	return null
+func update_queue_position():
+	if GameManager.has_method("join_queue"):
+		GameManager.join_queue(self, max_queue_size)
+	
+	var my_index = GameManager.cashier_queue.find(self)
+	if cashier_node and my_index != -1:
+		var offset = line_direction * (line_spacing * my_index)
+		nav_agent.target_position = cashier_node.global_position + offset
+
+func process_patience(delta):
+	if is_served: return
+	
+	var my_index = GameManager.cashier_queue.find(self)
+	
+	if my_index == 0:
+		patience_timer += delta
+		
+		if patience_bar:
+			patience_bar.visible = true
+			patience_bar.value = patience_timer
+			
+		if patience_timer >= 10.0:
+			patience_timer = 0.0
+			
+			# --- ANGRY: TOO SLOW ---
+			print("Ghost: >:( TOO SLOW! -1 HP")
+			anim.play("angry") # Switch to angry face
+			GameManager.take_damage(1)
+	else:
+		patience_timer = 0.0
+		if patience_bar: patience_bar.visible = false
+
+func start_checkout():
+	if GameManager.has_method("join_queue"):
+		var can_join = GameManager.join_queue(self, max_queue_size)
+		if not can_join:
+			# --- ANGRY: LINE FULL ---
+			print("Ghost: Line full! Angry!")
+			anim.play("angry")
+			GameManager.take_damage(1)
+			leave_shop()
+			return
+	go_to_node("CashierZone", State.TO_CASHIER)
+
+# --- ITEMS & SHELF WAITING LOGIC ---
 
 func start_searching_logic():
-	# 1. Try take immediately
+	# 1. Attempt Take (Success Path)
 	if attempt_take_item():
-		print("Ghost: Got " + desired_item_name + "!")
-		go_to_node("CashierZone", State.TO_CASHIER)
+		print("Ghost: Got item! Browsing for 2s...")
+		await get_tree().create_timer(2.0).timeout
+		start_checkout()
 		return
-
-	# 2. Loop Wait (10s)
-	print("Ghost: " + desired_item_name + " is empty! Waiting 10s...")
-	var timer = 0.0
-	while timer < 10.0:
-		await get_tree().create_timer(0.5).timeout
-		timer += 0.5
-		if attempt_take_item():
-			print("Ghost: Refilled! Got " + desired_item_name)
-			go_to_node("CashierZone", State.TO_CASHIER)
-			return 
 	
-	# 3. Failed
-	print("Ghost: Angry! -1 HP")
+	# 2. Retry Logic (Waiting for refill)
+	print("Ghost: Item empty! Waiting...")
+	if patience_bar:
+		patience_bar.visible = true
+		patience_bar.value = 0.0 
+	
+	var time_waited = 0.0
+	for i in range(20): 
+		await get_tree().create_timer(0.5).timeout
+		time_waited += 0.5
+		if patience_bar: patience_bar.value = time_waited
+
+		if attempt_take_item():
+			print("Ghost: Found item! Browsing for 2s...")
+			if patience_bar: patience_bar.visible = false 
+			await get_tree().create_timer(2.0).timeout
+			start_checkout()
+			return
+	
+	# 3. Failure Path (Empty Shelf)
+	print("Ghost: Still empty! Staring in disappointment for 2s...")
+	if patience_bar: patience_bar.value = 10.0
+	
+	await get_tree().create_timer(2.0).timeout 
+	if patience_bar: patience_bar.visible = false
+	
+	# --- ANGRY: NO ITEM ---
+	print("Ghost: ANGRY! -1 HP")
+	anim.play("angry") # Switch to angry face
 	GameManager.take_damage(1)
 	leave_shop()
 
@@ -158,26 +245,53 @@ func attempt_take_item():
 		return target_shelf_node.ai_take_item() 
 	return false
 
-func leave_shop():
-	current_state = State.TO_MARKER_1_EXIT
-	anim.flip_h = false 
-	go_to_node("Marker1", State.TO_MARKER_1_EXIT)
+func find_shelf_for_item(item_name):
+	for node in get_parent().get_children():
+		if "required_item" in node and node.required_item == item_name:
+			return node
+	return null
 
-# --- MOVEMENT HELPERS ---
+func leave_shop():
+	if GameManager.has_method("leave_queue"):
+		GameManager.leave_queue(self)
+	go_to_node("Marker1", State.TO_MARKER_1_EXIT)
 
 func go_to_node(node_name, next_state):
 	var target = get_parent().find_child(node_name, true, false)
-	move_to_target(target, next_state)
-
-func go_to_target_shelf():
-	move_to_target(target_shelf_node, State.TO_SHELF)
-
-func move_to_target(target_node, next_state):
-	if target_node:
+	if target:
 		current_state = next_state
-		var offset = Vector2(randf_range(-15, 15), randf_range(-15, 15))
-		nav_agent.target_position = target_node.global_position + offset
+		nav_agent.target_position = target.global_position
 	else:
-		print("ERROR: Target node missing")
-		if current_state != State.TO_DOOR_EXIT:
-			go_to_node("DoorPosition", State.TO_DOOR_EXIT)
+		queue_free()
+		
+func go_to_target_shelf():
+	if target_shelf_node:
+		current_state = State.TO_SHELF
+		nav_agent.target_position = target_shelf_node.global_position
+
+# --- UI VISUALS ---
+func setup_patience_bar():
+	patience_bar = ProgressBar.new()
+	add_child(patience_bar)
+	
+	# --- THE SQUASH TRICK ---
+	patience_bar.size = Vector2(60, 20)
+	patience_bar.scale = Vector2(1, 0.2) 
+	patience_bar.position = Vector2(-30, -70)
+	patience_bar.max_value = 10.0
+	patience_bar.show_percentage = false
+	patience_bar.visible = false
+	patience_bar.z_index = 10 
+	
+	# --- STYLES ---
+	var style_box = StyleBoxFlat.new()
+	style_box.bg_color = Color.RED
+	style_box.border_width_left = 0
+	style_box.border_width_top = 0
+	style_box.border_width_right = 0
+	style_box.border_width_bottom = 0
+	patience_bar.add_theme_stylebox_override("fill", style_box)
+	
+	var bg_style = StyleBoxFlat.new()
+	bg_style.bg_color = Color(0, 0, 0, 0.5)
+	patience_bar.add_theme_stylebox_override("background", bg_style)

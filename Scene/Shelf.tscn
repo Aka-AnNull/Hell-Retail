@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cyxsrw52r48vr" path="res://Sprite/shelf/GuideA4.png" id="7_assjd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dc3cn"]
-size = Vector2(216, 63)
+size = Vector2(216, 78)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_owmnp"]
 size = Vector2(192, 32)
@@ -85,7 +85,7 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_kbu8c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -13.5)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_dc3cn")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

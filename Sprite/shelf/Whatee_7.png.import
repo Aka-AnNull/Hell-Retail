@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfy10p0pdcway"
-path="res://.godot/imported/20251119_205617.png-8b2784c3731d546a97a5e5add8af948c.ctex"
+uid="uid://dvbk4k81wqsuf"
+path="res://.godot/imported/Whatee_7.png-fab8b18638fd2adfe0944dc47653000f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite/shelf/20251119_205617.png"
-dest_files=["res://.godot/imported/20251119_205617.png-8b2784c3731d546a97a5e5add8af948c.ctex"]
+source_file="res://Sprite/shelf/Whatee_7.png"
+dest_files=["res://.godot/imported/Whatee_7.png-fab8b18638fd2adfe0944dc47653000f.ctex"]
 
 [params]
 
