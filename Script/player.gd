@@ -10,6 +10,7 @@ extends CharacterBody2D
 var is_dashing : bool = false
 var can_dash : bool = true
 var is_working : bool = false
+var is_slowed : bool = false # <--- NEW: For Slime Logic
 
 # WE STORE THE NAME HERE
 var held_item_name : String = "" 
@@ -33,14 +34,21 @@ func _physics_process(_delta):
 	# 2. MOVEMENT INPUT
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
-	# 3. DASH LOGIC
+	# 3. DASH INPUT
 	if Input.is_action_just_pressed("ui_accept") and can_dash and direction != Vector2.ZERO:
 		start_dash()
 
+	# 4. CALCULATE SPEED (Merged Logic)
+	var current_speed = move_speed
+	
 	if is_dashing:
-		velocity = direction * dash_speed
-	else:
-		velocity = direction * move_speed
+		current_speed = dash_speed
+	
+	# Apply Slime Penalty (50% Slow)
+	if is_slowed:
+		current_speed *= 0.5
+		
+	velocity = direction * current_speed
 	
 	move_and_slide()
 	update_animation(direction)
@@ -50,8 +58,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("interact"):
 		attempt_interaction()
 		
-	# --- NEW: DROP ITEM (Q) ---
-	# We check specifically for the "Q" key code
+	# DROP ITEM (Q)
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_Q:
 		drop_held_item()
 
@@ -77,7 +84,6 @@ func clear_item():
 	print("Player: Used " + held_item_name)
 	held_item_name = "" 
 
-# --- NEW: DROP LOGIC ---
 func drop_held_item():
 	if held_item_name != "":
 		print("Player: Dropped " + held_item_name + " on the floor.")
@@ -101,6 +107,17 @@ func _on_dash_timer_timeout():
 	is_dashing = false
 	await get_tree().create_timer(dash_cooldown).timeout
 	can_dash = true
+
+# --- SLIME / DEBUFF LOGIC (NEW) ---
+
+func slow_down(active: bool):
+	is_slowed = active
+	if is_slowed:
+		print("Player: Stuck in slime! Speed reduced.")
+		anim.modulate = Color(0.7, 1, 0.7) # Visual tint green
+	else:
+		print("Player: Free from slime.")
+		anim.modulate = Color(1, 1, 1) # Reset color
 
 # --- ANIMATION & WORKING ---
 

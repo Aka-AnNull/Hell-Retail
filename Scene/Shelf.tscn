@@ -129,8 +129,7 @@ animation = &"bounce"
 frame_progress = 0.7229691
 
 [node name="PromptLabel" type="Label" parent="."]
-visible = false
-z_index = 1
+z_index = 2
 offset_left = -62.0
 offset_top = -89.0
 offset_right = 62.0
