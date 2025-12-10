@@ -1,0 +1,98 @@
+[gd_scene load_steps=16 format=3 uid="uid://cw1jl72t4c25t"]
+
+[ext_resource type="Script" uid="uid://caynvv2v5ow52" path="res://Script/small_bird.gd" id="1_rqrwu"]
+[ext_resource type="Texture2D" uid="uid://10xruypqa4nl" path="res://Sprite/Customer/Small_Bird/SmallBird5.png" id="2_livt1"]
+[ext_resource type="Texture2D" uid="uid://cwn18fpv84ycf" path="res://Sprite/Customer/Small_Bird/SmallBird6.png" id="3_2axk5"]
+[ext_resource type="Texture2D" uid="uid://c1sjhfdde7jai" path="res://Sprite/Customer/Small_Bird/SmallBird3.png" id="4_4exh1"]
+[ext_resource type="Texture2D" uid="uid://bblmwnwik3pdv" path="res://Sprite/Customer/Small_Bird/SmallBird4.png" id="5_5icdy"]
+[ext_resource type="Texture2D" uid="uid://bvst8imqvav48" path="res://Sprite/Customer/Small_Bird/SmallBird1.png" id="6_ccxwn"]
+[ext_resource type="Texture2D" uid="uid://gd8cxm8wknpc" path="res://Sprite/Customer/Small_Bird/SmallBird2.png" id="7_h7qcc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u75m"]
+atlas = ExtResource("2_livt1")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3kux"]
+atlas = ExtResource("3_2axk5")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_440ri"]
+atlas = ExtResource("4_4exh1")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlbwo"]
+atlas = ExtResource("5_5icdy")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13ywi"]
+atlas = ExtResource("6_ccxwn")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1b5p"]
+atlas = ExtResource("7_h7qcc")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xvby2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8u75m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3kux")
+}],
+"loop": true,
+"name": &"angry",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_440ri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_440ri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlbwo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13ywi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1b5p")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uknkg"]
+radius = 17.0
+
+[node name="SmallBird" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_rqrwu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.054664176, 0.054664176)
+sprite_frames = SubResource("SpriteFrames_xvby2")
+animation = &"angry"
+centered = false
+offset = Vector2(-536, -1072)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uknkg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 50.0
+debug_enabled = true
+
+[node name="PatienceTimer" type="Timer" parent="."]
+one_shot = true

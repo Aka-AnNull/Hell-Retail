@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://bfrfq4235i5lq"]
 
-[ext_resource type="Script" uid="uid://bt5pipk48h0rv" path="res://zombie.gd" id="1_dicts"]
+[ext_resource type="Script" uid="uid://bt5pipk48h0rv" path="res://Script/zombie.gd" id="1_dicts"]
 [ext_resource type="Texture2D" uid="uid://cfaecxsup0nid" path="res://Sprite/Customer/Zombie/ZombieA1.png" id="2_m5h45"]
 [ext_resource type="PackedScene" uid="uid://bguqhevy18nxk" path="res://Scene/Graveyard.tscn" id="2_xv332"]
 [ext_resource type="Texture2D" uid="uid://fxlx5li6m10v" path="res://Sprite/Customer/Zombie/ZombieA2.png" id="3_xv332"]

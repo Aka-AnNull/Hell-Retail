@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yqht2k51rpdf"
-path="res://.godot/imported/Shelf_1.png-3b147dc9f6bb2e5c4c4ab7ea5f743caa.ctex"
+uid="uid://cmjyhgpg2gv6b"
+path="res://.godot/imported/Ecoin1.png-5e3653ad1db9bc9615e8e49aecd0ef65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite/shelf/Shelf_1.png"
-dest_files=["res://.godot/imported/Shelf_1.png-3b147dc9f6bb2e5c4c4ab7ea5f743caa.ctex"]
+source_file="res://Sprite/shelf/Coin/Ecoin1.png"
+dest_files=["res://.godot/imported/Ecoin1.png-5e3653ad1db9bc9615e8e49aecd0ef65.ctex"]
 
 [params]
 

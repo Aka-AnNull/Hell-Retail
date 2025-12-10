@@ -37,7 +37,7 @@ func _ready():
 	cashier_node = get_parent().find_child("CashierZone", true, false)
 	
 	# SHOPPING LIST
-	var shopping_list = ["Cola", "Coke", "Sprite", "Pepsi"] 
+	var shopping_list = ["Cola", "Coke", "Sprite", "Pepsi" , "Est", "Sarsi" , "Fanta"] 
 	desired_item_name = shopping_list.pick_random()
 	target_shelf_node = find_shelf_for_item(desired_item_name)
 	
@@ -169,13 +169,18 @@ func process_patience(delta):
 	var my_index = GameManager.cashier_queue.find(self)
 	
 	if my_index == 0:
+		# --- UPDATE MAX VALUE FOR CASHIER (15s) ---
+		if patience_bar and patience_bar.max_value != 15.0:
+			patience_bar.max_value = 15.0
+			
 		patience_timer += delta
 		
 		if patience_bar:
 			patience_bar.visible = true
 			patience_bar.value = patience_timer
 			
-		if patience_timer >= 10.0:
+		# --- CHANGED: 15 SECONDS LIMIT ---
+		if patience_timer >= 15.0:
 			patience_timer = 0.0
 			
 			# --- ANGRY: TOO SLOW ---
@@ -211,6 +216,8 @@ func start_searching_logic():
 	# 2. Retry Logic (Waiting for refill)
 	print("Ghost: Item empty! Waiting...")
 	if patience_bar:
+		# --- KEEP MAX VALUE AT 10 FOR SHELF WAITING (SAME AS BEFORE) ---
+		patience_bar.max_value = 10.0
 		patience_bar.visible = true
 		patience_bar.value = 0.0 
 	
@@ -278,7 +285,7 @@ func setup_patience_bar():
 	patience_bar.size = Vector2(60, 20)
 	patience_bar.scale = Vector2(1, 0.2) 
 	patience_bar.position = Vector2(-30, -70)
-	patience_bar.max_value = 10.0
+	patience_bar.max_value = 10.0 # Starts at 10, but updates to 15 at cashier
 	patience_bar.show_percentage = false
 	patience_bar.visible = false
 	patience_bar.z_index = 10 
