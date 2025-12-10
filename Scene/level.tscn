@@ -178,10 +178,11 @@ wait_time = 2.0
 one_shot = true
 
 [node name="CoinEffect" type="AnimatedSprite2D" parent="CashierZone"]
+visible = false
 position = Vector2(-1.9073486e-06, 0.4999842)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_ajkoj")
-frame_progress = 0.9241264
+frame_progress = 0.91665864
 offset = Vector2(-220, -80)
 
 [node name="PromptLabel" type="Label" parent="CashierZone"]
