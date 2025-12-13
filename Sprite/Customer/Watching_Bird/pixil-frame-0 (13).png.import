@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsll1u0heymi7"
-path="res://.godot/imported/Whatee_3.png-8fab62325dce6ffde05b0bf46c93537e.ctex"
+uid="uid://cq4mh7d18k2bn"
+path="res://.godot/imported/pixil-frame-0 (13).png-e6391dc127b62162d7e8cb721b3b446a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite/shelf/Whatee_3.png"
-dest_files=["res://.godot/imported/Whatee_3.png-8fab62325dce6ffde05b0bf46c93537e.ctex"]
+source_file="res://Sprite/Customer/Watching_Bird/pixil-frame-0 (13).png"
+dest_files=["res://.godot/imported/pixil-frame-0 (13).png-e6391dc127b62162d7e8cb721b3b446a.ctex"]
 
 [params]
 

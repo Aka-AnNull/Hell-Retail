@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://l1bhryukeiwu"]
+[gd_scene load_steps=36 format=3 uid="uid://l1bhryukeiwu"]
 
 [ext_resource type="Script" uid="uid://7oa5a1t3nu7g" path="res://Script/player.gd" id="1_y8w33"]
 [ext_resource type="Texture2D" uid="uid://didlv2j3q6ihe" path="res://Sprite/player/hold_idle1.png" id="2_c68nv"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c3dvg01gwje2k" path="res://Sprite/Customer/Reaper/slash2.png" id="12_fn0wv"]
 [ext_resource type="Texture2D" uid="uid://fbsmhxdppvy5" path="res://Sprite/Customer/Reaper/slash3.png" id="13_eqmt2"]
 [ext_resource type="Texture2D" uid="uid://d2afdke35vqph" path="res://Sprite/Customer/Reaper/slash4.png" id="14_c40dt"]
+[ext_resource type="Texture2D" uid="uid://d3c1n0bnb688o" path="res://Sprite/Customer/Reaper/Blank_Sprite.png" id="15_fn0wv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_58ae2"]
 size = Vector2(44, 21.400013)
@@ -161,22 +162,23 @@ region = Rect2(0, 0, 1072, 1072)
 atlas = ExtResource("14_c40dt")
 region = Rect2(0, 0, 1072, 1072)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_uktg4"]
+atlas = ExtResource("15_fn0wv")
+region = Rect2(0, 0, 1072, 1072)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_uktg4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lhccw")
 }, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lhccw")
-}, {
-"duration": 1.0,
+"duration": 0.75,
 "texture": SubResource("AtlasTexture_7d6xm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7d6xm")
+"texture": SubResource("AtlasTexture_2sr8w")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_2sr8w")
 }, {
 "duration": 1.0,
@@ -185,19 +187,23 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1vqkc")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_7d6xm")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_lhccw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uktg4")
 }],
 "loop": false,
 "name": &"default",
-"speed": 4.0
+"speed": 13.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
+slide_on_ceiling = false
 platform_floor_layers = 4294967043
 platform_wall_layers = 3
 script = ExtResource("1_y8w33")

@@ -10,7 +10,6 @@ extends Area2D
 @export var coin_frames : SpriteFrames 
 
 # --- SETTINGS ---
-# Adjust this number in the Inspector to make buttons bigger/smaller!
 @export var coin_scale_modifier : float = 3.0 
 var total_buttons = 5
 var buttons_clicked = 0
@@ -32,7 +31,8 @@ func _ready():
 	if not body_exited.is_connected(_on_body_exited):
 		body_exited.connect(_on_body_exited)
 
-func _process(_delta):
+func _process(delta):
+	# --- 1. SMART PROMPT LOGIC ---
 	if prompt:
 		var has_customers = GameManager.cashier_queue.size() > 0
 		if player_in_zone and has_customers and not is_minigame_active:
@@ -43,6 +43,17 @@ func _process(_delta):
 				prompt.visible = true
 		else:
 			prompt.visible = false
+
+	# --- 2. PAUSE PATIENCE LOGIC ---
+	# If we are playing the game, we "Freeze" the customer's anger
+	if is_minigame_active and GameManager.cashier_queue.size() > 0:
+		var current_customer = GameManager.cashier_queue[0]
+		if is_instance_valid(current_customer):
+			# We check if they have a timer variable
+			if "patience_timer" in current_customer:
+				current_customer.patience_timer -= delta
+				if current_customer.patience_timer < 0:
+					current_customer.patience_timer = 0.0
 
 # --- INTERACT LOGIC ---
 func interact(player):
@@ -73,6 +84,36 @@ func start_minigame(player):
 	if player_ref and player_ref.has_method("freeze_for_work"):
 		player_ref.is_working = true 
 	
+	# --- DETERMINE COINS ---
+	var required_coins = 5 # Default
+	if GameManager.cashier_queue.size() > 0:
+		var customer = GameManager.cashier_queue[0]
+		if customer.has_method("get_required_coins"):
+			required_coins = customer.get_required_coins()
+			print("Cashier: BOSS DETECTED! Need " + str(required_coins) + " coins!")
+	
+	total_buttons = required_coins
+	
+	var viewport_size = get_viewport_rect().size
+	
+	if total_buttons > 10:
+		# BOSS MODE: Huge Window (80% of screen)
+		background_panel.size = viewport_size * 0.8
+		background_panel.position = (viewport_size - background_panel.size) / 2
+	else:
+		# NORMAL MODE: Your preferred size (800x500)
+		background_panel.size = Vector2(800, 500) 
+		background_panel.position = (viewport_size - background_panel.size) / 2
+
+	minigame_layer.visible = true
+	background_panel.visible = true
+	
+	if prompt: prompt.visible = false
+	
+	spawn_random_coins()
+	total_buttons = required_coins
+	# -----------------------------
+	
 	minigame_layer.visible = true
 	background_panel.visible = true
 	background_panel.position = (get_viewport_rect().size - background_panel.size) / 2
@@ -92,35 +133,30 @@ func spawn_random_coins():
 
 	var panel_size = background_panel.size
 	
-	# --- AUTO-SIZING LOGIC ---
+	# Auto-sizing
 	var first_texture = coin_frames.get_frame_texture("default", 0)
-	var button_size = Vector2(50, 50) # Fallback default
+	var button_size = Vector2(50, 50)
 	
 	if first_texture:
-		# We multiply the raw image size by your modifier (e.g. x3)
 		button_size = first_texture.get_size() * coin_scale_modifier
 	
 	var existing_rects = []
 	
 	for i in range(total_buttons):
-		# 1. Invisible Button
 		var btn = Button.new()
 		btn.size = button_size
 		btn.flat = true 
 		btn.mouse_filter = Control.MOUSE_FILTER_STOP
 		
-		# 2. Animated Sprite
 		var anim_sprite = AnimatedSprite2D.new()
 		anim_sprite.sprite_frames = coin_frames
 		anim_sprite.play("default")
-		
-		# --- KEY: Apply the same scale to the sprite ---
 		anim_sprite.scale = Vector2(coin_scale_modifier, coin_scale_modifier)
 		anim_sprite.centered = false 
 		
 		btn.add_child(anim_sprite)
 		
-		# 3. Positioning (No Overlap)
+		# Positioning
 		var safe_pos = Vector2.ZERO
 		var attempts = 0
 		var found_spot = false
@@ -133,7 +169,6 @@ func spawn_random_coins():
 			var min_y = border_margin
 			var max_y = panel_size.y - button_size.y - border_margin
 			
-			# Safety check if button is bigger than panel
 			if min_x > max_x: max_x = min_x
 			if min_y > max_y: max_y = min_y
 			
@@ -157,7 +192,6 @@ func spawn_random_coins():
 		background_panel.add_child(btn)
 
 func _on_coin_clicked(btn_node, sprite_node):
-	# Change animation to "pressed" (green coin)
 	if sprite_node.sprite_frames.has_animation("pressed"):
 		sprite_node.play("pressed")
 	else:
@@ -201,7 +235,7 @@ func play_coin_animation():
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(coin_effect, "position:y", -120.0, 1.0) 
-	tween.tween_property(coin_effect, "modulate:a", 0.0, 1.0)     
+	tween.tween_property(coin_effect, "modulate:a", 0.0, 1.0)      
 	
 	await tween.finished
 	coin_effect.visible = false

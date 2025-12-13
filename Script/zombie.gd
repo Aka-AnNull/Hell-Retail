@@ -113,18 +113,15 @@ func become_angry(reason: String):
 	
 	GameManager.take_damage(1)
 	
-	# ONLY SPAWN GRAVEYARD IF REASON IS EMPTY SHELF
-	if reason == "Shelf Empty":
+	# --- FIX: ADD "Line Full" HERE ---
+	if reason == "Shelf Empty" or reason == "Line Full":
 		if graveyard_scene:
-			print("Zombie: BRAINS! Empty Shelf! Spawning Tombstone.")
+			print("Zombie: BRAINS! Spawning Tombstone.")
 			var grave = graveyard_scene.instantiate()
-			
-			# SPAWN 100 PIXELS DOWN
 			grave.global_position = global_position + Vector2(0, 25)
-			
 			get_parent().add_child(grave)
 	else:
-		print("Zombie: Mad at cashier/line.")
+		print("Zombie: Mad at cashier speed.")
 
 func update_animation():
 	var anim_name = ""
@@ -153,7 +150,7 @@ func get_served():
 	is_angry = false
 	update_animation()
 	
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	if GameManager.has_method("leave_queue"):
 		GameManager.leave_queue(self)
@@ -216,7 +213,6 @@ func process_patience(delta):
 			patience_bar.visible = true
 			patience_bar.value = patience_timer
 			
-		# --- NERFED: NOW 15 SECONDS ---
 		if patience_timer >= 15.0:
 			patience_timer = 0.0
 			become_angry("Cashier Too Slow")
@@ -228,6 +224,7 @@ func start_checkout():
 	if GameManager.has_method("join_queue"):
 		var can_join = GameManager.join_queue(self, max_queue_size)
 		if not can_join:
+			# Triggers Tombstone, then leaves
 			become_angry("Line Full")
 			leave_shop()
 			return
@@ -246,14 +243,13 @@ func start_searching_logic():
 	# 2. Retry Logic
 	print("Zombie: Item empty! Waiting...")
 	if patience_bar:
-		# --- ENSURE BAR IS 7.5 FOR SHELF (Standard for Zombie) ---
 		patience_bar.max_value = 7.5
 		patience_bar.visible = true
 		patience_bar.value = 0.0 
 	
 	var time_waited = 0.0
 	
-	# --- 7.5 SECONDS (15 loops) - KEPT SAME ---
+	# --- 7.5 SECONDS (15 loops) ---
 	for i in range(15): 
 		await get_tree().create_timer(0.5).timeout
 		time_waited += 0.5

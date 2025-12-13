@@ -4,32 +4,25 @@ extends Area2D
 @export var stock_image : Texture2D 
 
 @onready var sprite = $Sprite2D 
-@onready var prompt = $PromptLabel # Make sure this matches your Label name!
+@onready var prompt = $PromptLabel 
 
 func _ready():
+	# 1. Setup
 	if stock_image: sprite.texture = stock_image
 	if prompt: prompt.visible = false 
 	
-	# Connect signals
-	if not body_entered.is_connected(_on_body_entered):
-		body_entered.connect(_on_body_entered)
-	if not body_exited.is_connected(_on_body_exited):
-		body_exited.connect(_on_body_exited)
+	# We strictly add this to a group so we can find it later if needed, 
+	# but we don't strictly need body_entered for prompts anymore.
+	add_to_group("Interactable")
 
-func _on_body_entered(body):
-	# DEBUG PRINT: What touched me?
-	print("Stock touched by: ", body.name)
-	
-	if body.is_in_group("Player"):
-		print("SUCCESS: Player detected. Showing label.")
-		if prompt: prompt.visible = true
-	else:
-		print("FAIL: Touched object is not in 'Player' group.")
+# --- NEW: CONTROLLED BY PLAYER ---
+func show_prompt():
+	if prompt: prompt.visible = true
 
-func _on_body_exited(body):
-	if body.is_in_group("Player"):
-		if prompt: prompt.visible = false
+func hide_prompt():
+	if prompt: prompt.visible = false
 
+# --- INTERACTION ---
 func interact(player):
 	if player.held_item_name == "":
 		player.pickup_item(item_name)

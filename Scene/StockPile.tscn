@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="3_njecd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wl36f"]
-size = Vector2(171, 55)
+size = Vector2(157.5, 55)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qcfx3"]
 size = Vector2(154, 36)
@@ -21,7 +21,7 @@ outline_color = Color(0, 0, 0, 1)
 script = ExtResource("1_wl36f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, -15)
+position = Vector2(1.25, -15)
 shape = SubResource("RectangleShape2D_wl36f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

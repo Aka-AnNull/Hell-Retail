@@ -109,7 +109,6 @@ shape = SubResource("CircleShape2D_uknkg")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 50.0
-debug_enabled = true
 
 [node name="PatienceTimer" type="Timer" parent="."]
 one_shot = true

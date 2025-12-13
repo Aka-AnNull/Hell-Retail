@@ -106,19 +106,20 @@ func _physics_process(delta):
 
 func update_animation():
 	# --- RAGE LOGIC START ---
+	# If NOT satisfied (start of level) OR angry at cashier (end of level rage)
 	if not is_satisfied or is_angry_at_cashier:
 		anim.play("angry")
-		# FLIP LOGIC (INVERTED)
-		if velocity.x < 0: anim.flip_h = false # Facing Left (No flip)
-		elif velocity.x > 0: anim.flip_h = true  # Facing Right (Flip)
+		# FLIP LOGIC
+		if velocity.x < 0: anim.flip_h = false # Facing Left
+		elif velocity.x > 0: anim.flip_h = true  # Facing Right
 		
 	# --- NORMAL BEHAVIOR ---
 	else:
 		if velocity.length() > 5.0:
 			anim.play("walk")
-			# FLIP LOGIC (INVERTED)
-			if velocity.x < 0: anim.flip_h = false # Facing Left (No flip)
-			elif velocity.x > 0: anim.flip_h = true  # Facing Right (Flip)
+			# FLIP LOGIC
+			if velocity.x < 0: anim.flip_h = false 
+			elif velocity.x > 0: anim.flip_h = true  
 		else:
 			anim.play("idle")
 
@@ -131,7 +132,6 @@ func process_patience(delta):
 	
 	# Only lose patience if at the FRONT of the line
 	if my_index == 0:
-		# --- UPDATE MAX VALUE FOR CASHIER (15s) ---
 		if patience_bar and patience_bar.max_value != 15.0:
 			patience_bar.max_value = 15.0
 			
@@ -141,7 +141,6 @@ func process_patience(delta):
 			patience_bar.visible = true
 			patience_bar.value = patience_timer
 		
-		# --- NERFED: NOW 15 SECONDS ---
 		if patience_timer >= 15.0:
 			patience_timer = 0.0
 			# RAGE LOGIC: Took too long, revert to Angry Mode
@@ -158,14 +157,12 @@ func get_served():
 	
 	print("Bird: Payment started...")
 	is_served = true 
-	patience_timer = 0.0 # Stop the anger timer immediately
+	patience_timer = 0.0 
 	if patience_bar: patience_bar.visible = false
 	
-	# --- WAIT FOR CHARGE/SERVICE TO FINISH ---
-	# We wait here first. The player is "charging" the bird.
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(0.5).timeout
 
-	# --- CHECK REWARD (After charge is complete) ---
+	# --- CHECK REWARD ---
 	if not is_angry_at_cashier:
 		print("Bird: Service complete! Granting Player Speed Boost.")
 		var player = get_tree().get_first_node_in_group("Player")
@@ -185,7 +182,7 @@ func get_served():
 	print("Bird: Leaving store.")
 	current_state = State.TO_MARKER_1_EXIT
 	is_served = false 
-	anim.flip_h = false # Reset flip for exit (adjust if needed)
+	anim.flip_h = false 
 	go_to_node("Marker1", State.TO_MARKER_1_EXIT)
 
 func start_searching_logic():
@@ -199,7 +196,6 @@ func start_searching_logic():
 		return
 	
 	if patience_bar:
-		# --- ENSURE BAR IS 5.0 FOR SHELF (Standard for Bird) ---
 		patience_bar.max_value = 5.0
 		patience_bar.visible = true
 		patience_bar.value = 0.0 
@@ -269,6 +265,12 @@ func start_checkout():
 	if GameManager.has_method("join_queue"):
 		var can_join = GameManager.join_queue(self, max_queue_size)
 		if not can_join:
+			# --- FIX: TURN ANGRY BEFORE LEAVING ---
+			print("Bird: Line Full! Leaving ANGRY.")
+			is_satisfied = false # Revert to angry state
+			is_angry_at_cashier = true 
+			update_animation()
+			
 			GameManager.take_damage(2) 
 			leave_shop()
 			return

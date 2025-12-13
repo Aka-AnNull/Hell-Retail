@@ -108,7 +108,7 @@ func _physics_process(delta):
 func get_served():
 	if is_served: return 
 	
-	print("Ghost: Payment started... Waiting 2s.")
+	print("Ghost: Payment started... Waiting 0.5s.")
 	
 	is_served = true 
 	patience_timer = 0.0
@@ -117,7 +117,7 @@ func get_served():
 	# RESET ANIMATION: If they were angry, make them happy again
 	anim.play("idle") 
 	
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	if GameManager.has_method("leave_queue"):
 		GameManager.leave_queue(self)

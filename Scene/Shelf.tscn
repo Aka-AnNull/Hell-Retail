@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://tws0wveogunt"]
+[gd_scene load_steps=19 format=3 uid="uid://tws0wveogunt"]
 
 [ext_resource type="Script" uid="uid://c2o4ox6mv7eee" path="res://Script/shelf.gd" id="1_dc3cn"]
 [ext_resource type="Texture2D" uid="uid://b410u1rw3nvt1" path="res://Sprite/shelf/Default_Shelf.png" id="1_kbu8c"]
 [ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="3_442f4"]
+[ext_resource type="SpriteFrames" uid="uid://0qndh2gwbvxy" path="res://Resorces/Sprite_Coke.tres" id="3_xfv8v"]
 [ext_resource type="Texture2D" uid="uid://q2gje3k1mfwi" path="res://Sprite/shelf/GuideA1.png" id="4_hl1x8"]
 [ext_resource type="Texture2D" uid="uid://byrvlxlbns35b" path="res://Sprite/shelf/GuideA2.png" id="5_xfv8v"]
 [ext_resource type="Texture2D" uid="uid://b5n2cwus0swtx" path="res://Sprite/shelf/GuideA3.png" id="6_rnqk1"]
@@ -79,10 +80,17 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Shelf" type="Area2D"]
 script = ExtResource("1_dc3cn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="BodySprite" type="Sprite2D" parent="."]
 position = Vector2(0, -74)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_kbu8c")
+
+[node name="ItemSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.99999994, -74)
+scale = Vector2(0.2, 0.2)
+sprite_frames = ExtResource("3_xfv8v")
+frame = 6
+frame_progress = 0.60959804
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)

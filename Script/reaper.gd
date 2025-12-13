@@ -26,6 +26,7 @@ var item_2_node = null
 var cashier_node = null 
 var patience_timer : float = 0.0
 var is_served : bool = false 
+var is_angry : bool = false # Added state tracking
 
 # --- FLOATING ---
 var float_time = 0.0
@@ -99,6 +100,7 @@ func _physics_process(delta):
 		if dist_to_slot < 10.0:
 			velocity = Vector2.ZERO
 			move_and_slide()
+			update_animation()
 			return
 
 	# --- ARRIVAL CHECK ---
@@ -114,7 +116,29 @@ func _physics_process(delta):
 	if next_pos == Vector2.ZERO: return
 	velocity = global_position.direction_to(next_pos) * move_speed
 	move_and_slide()
-	anim.flip_h = velocity.x < 0
+	
+	if velocity.x < 0: anim.flip_h = true
+	elif velocity.x > 0: anim.flip_h = false
+	
+	update_animation()
+
+func update_animation():
+	var anim_name = ""
+	if velocity.length() > 5.0:
+		anim_name = "walk"
+	else:
+		anim_name = "idle"
+		
+	if is_angry:
+		anim_name = "angry_" + anim_name
+		
+	# Check if animation exists to avoid errors
+	if anim.sprite_frames.has_animation(anim_name):
+		anim.play(anim_name)
+	else:
+		# Fallback if "angry_walk" doesn't exist, just use "angry" base
+		if is_angry: anim.play("angry")
+		else: anim.play("idle")
 
 # --- SERVED LOGIC ---
 func get_served():
@@ -126,9 +150,11 @@ func get_served():
 	patience_timer = 0.0
 	if patience_bar: patience_bar.visible = false
 	
-	anim.play("idle") 
+	# Calm down
+	is_angry = false
+	update_animation()
 	
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	if GameManager.has_method("leave_queue"):
 		GameManager.leave_queue(self)
@@ -141,6 +167,7 @@ func get_served():
 
 func handle_arrival():
 	velocity = Vector2.ZERO
+	update_animation()
 	match current_state:
 		State.TO_MARKER_1_ENTER:
 			current_state = State.TO_MARKER_2
@@ -202,6 +229,7 @@ func start_searching_1():
 	
 	# If he waits 15s here, he gets angry and STUNS player
 	reaper_angry("First Shelf Empty")
+	leave_shop() # Only leave if shelf is empty
 
 # --- SEARCHING LOGIC 2 (Becomes Visible on Success) ---
 func start_searching_2():
@@ -243,12 +271,14 @@ func start_searching_2():
 	
 	# If 15s passes here, he becomes visible and angry
 	reaper_angry("Second Shelf Empty")
+	leave_shop() # Only leave if shelf is empty
 
 func reaper_angry(reason):
 	# !!! CRITICAL: REAPER CASTS SKILL !!!
 	anim.visible = true 
+	is_angry = true
 	print("Reaper CASTING SKILL: " + reason)
-	anim.play("angry")
+	update_animation()
 	
 	# --- SKILL: STUN PLAYER (2 Seconds) ---
 	if GameManager.has_method("stun_player"):
@@ -259,8 +289,9 @@ func reaper_angry(reason):
 	# Deal Damage
 	if GameManager.has_method("take_damage"):
 		GameManager.take_damage(2) 
-	
-	leave_shop()
+
+	# NOTE: We DO NOT call leave_shop() here anymore!
+	# The specific failure functions call it if needed.
 
 func attempt_take_item(shelf_node):
 	if shelf_node and shelf_node.has_method("ai_take_item"):
@@ -281,6 +312,7 @@ func start_checkout():
 		var can_join = GameManager.join_queue(self, max_queue_size)
 		if not can_join:
 			reaper_angry("Line Full")
+			leave_shop() # Leave if line full
 			return
 	go_to_node("CashierZone", State.TO_CASHIER)
 

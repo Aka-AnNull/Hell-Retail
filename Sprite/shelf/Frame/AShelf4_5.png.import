@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wuijymxsi3bi"
-path="res://.godot/imported/Whatee_6.png-a57b7ca463740430c614b691848b1c48.ctex"
+uid="uid://d00ruipibhtpf"
+path="res://.godot/imported/AShelf4_5.png-cc80ad096cd849f7b69f1feeb4be7a5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite/shelf/Whatee_6.png"
-dest_files=["res://.godot/imported/Whatee_6.png-a57b7ca463740430c614b691848b1c48.ctex"]
+source_file="res://Sprite/shelf/Frame/AShelf4_5.png"
+dest_files=["res://.godot/imported/AShelf4_5.png-cc80ad096cd849f7b69f1feeb4be7a5c.ctex"]
 
 [params]
 

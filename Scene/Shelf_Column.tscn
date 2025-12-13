@@ -79,7 +79,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Shelf" type="Area2D"]
 script = ExtResource("1_b7wit")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="BodySprite" type="Sprite2D" parent="."]
 position = Vector2(3.999999, -91)
 scale = Vector2(0.054453135, 0.056068953)
 texture = ExtResource("2_b7wit")

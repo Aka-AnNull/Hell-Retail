@@ -17,7 +17,6 @@ extends CharacterBody2D
 var patience_bar : ProgressBar = null
 
 # --- STATE MACHINE ---
-# Added a dummy state "EXITING_HOLY" to stop movement logic
 enum State { TO_MARKER_1_ENTER, TO_MARKER_2, TO_SHELF, SEARCHING, TO_CASHIER, WAITING_AT_CASHIER, TO_MARKER_1_EXIT, TO_DOOR_EXIT, EXITING_HOLY }
 var current_state = State.TO_MARKER_1_ENTER
 
@@ -35,20 +34,14 @@ func _ready():
 	anim.play("idle")
 	setup_patience_bar()
 	
-	# --- NEW: CONNECT CLICK AREA ---
-	# We look for the Area2D you added to make clicking easier
 	if has_node("ClickArea"):
 		var click_area = $ClickArea
-		# Connect the input_event signal via code
 		click_area.input_event.connect(_on_click_area_input)
 	else:
-		print("LongBird Warning: No 'ClickArea' found! Clicking might be hard.")
-		# Fallback to root pickable if user forgot the Area2D
 		input_pickable = true 
 	
 	cashier_node = get_parent().find_child("CashierZone", true, false)
 	
-	# SHOPPING LIST
 	var shopping_list = ["Cola", "Coke", "Sprite", "Pepsi" , "Est", "Sarsi" , "Fanta"] 
 	desired_item_name = shopping_list.pick_random()
 	target_shelf_node = find_shelf_for_item(desired_item_name)
@@ -58,14 +51,10 @@ func _ready():
 		queue_free()
 		return
 
-	# SPAWN AT DOOR
 	var door = get_parent().find_child("DoorPosition", true, false)
 	if door: 
 		global_position = door.global_position 
-	else:
-		print("Bird Error: Could not find 'DoorPosition' node!")
 
-	# START
 	await get_tree().create_timer(1.0).timeout
 	go_to_node("Marker1", State.TO_MARKER_1_ENTER)
 
@@ -73,14 +62,12 @@ func _exit_tree():
 	if GameManager.has_method("leave_queue"):
 		GameManager.leave_queue(self)
 
-# --- CLICK LOGIC (UPDATED) ---
+# --- CLICK LOGIC ---
 
-# 1. This handles the new Area2D click (The big hitbox)
 func _on_click_area_input(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		handle_click()
 
-# 2. This handles the old direct click (Backup)
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		handle_click()
@@ -91,21 +78,17 @@ func handle_click():
 		trigger_equalizer_effect()
 
 func _physics_process(delta):
-	# STOP everything if we are in the holy exit state
 	if current_state == State.EXITING_HOLY: return
 	if is_served: return
 
-	# --- ANIMATION SWITCHING ---
 	if velocity.length() > 0:
 		anim.play("walk")
 	else:
 		anim.play("idle")
 
-	# --- QUEUE UPDATE ---
 	if current_state == State.TO_CASHIER or current_state == State.WAITING_AT_CASHIER:
 		update_queue_position()
 		
-	# --- PATIENCE LOGIC ---
 	if current_state == State.WAITING_AT_CASHIER:
 		if patience_bar: patience_bar.visible = false
 		pass 
@@ -114,7 +97,6 @@ func _physics_process(delta):
 
 	if current_state == State.SEARCHING: return
 	
-	# --- INCH FORWARD LOGIC ---
 	if current_state == State.WAITING_AT_CASHIER:
 		var dist_to_slot = global_position.distance_to(nav_agent.target_position)
 		if dist_to_slot < 10.0:
@@ -122,7 +104,6 @@ func _physics_process(delta):
 			move_and_slide()
 			return
 
-	# --- ARRIVAL CHECK ---
 	var dist = global_position.distance_to(nav_agent.target_position)
 	var required_dist = stop_distance + 10.0
 	
@@ -130,7 +111,6 @@ func _physics_process(delta):
 		handle_arrival()
 		return
 
-	# --- MOVEMENT ---
 	var next_pos = nav_agent.get_next_path_position()
 	if next_pos == Vector2.ZERO: 
 		velocity = Vector2.ZERO
@@ -145,14 +125,13 @@ func get_served():
 	if is_served: return 
 	
 	print("Bird: Payment started... Waiting 2s.")
-	
 	is_served = true 
 	patience_timer = 0.0
 	if patience_bar: patience_bar.visible = false
 	
 	anim.play("idle") 
 	
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	if GameManager.has_method("leave_queue"):
 		GameManager.leave_queue(self)
@@ -188,8 +167,6 @@ func handle_arrival():
 			GameManager.on_customer_left()
 			queue_free()
 
-# --- QUEUE & LOGIC ---
-
 func update_queue_position():
 	if GameManager.has_method("join_queue"):
 		GameManager.join_queue(self, max_queue_size)
@@ -199,13 +176,45 @@ func update_queue_position():
 		var offset = line_direction * (line_spacing * my_index)
 		nav_agent.target_position = cashier_node.global_position + offset
 
+# --- CHECKOUT LOGIC (UPDATED) ---
 func start_checkout():
 	if GameManager.has_method("join_queue"):
 		var can_join = GameManager.join_queue(self, max_queue_size)
-		if not can_join:
-			leave_shop()
-			return
-	go_to_node("CashierZone", State.TO_CASHIER)
+		if can_join:
+			# Normal Join
+			go_to_node("CashierZone", State.TO_CASHIER)
+		else:
+			# LINE FULL -> ACTIVATE SKILL
+			print("Bird: Line Full! I am purging the line!")
+			trigger_line_cut_effect()
+
+func trigger_line_cut_effect():
+	# 1. LOCK STATE
+	can_be_clicked = false
+	current_state = State.EXITING_HOLY
+	velocity = Vector2.ZERO
+	anim.play("idle")
+	if patience_bar: patience_bar.visible = false
+	
+	# 2. GLOW EFFECT
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color(10, 10, 10, 1), 0.5) 
+	tween.tween_interval(1.5)
+	
+	await tween.finished
+	
+	# 3. CALL MANAGER TO PURGE LINE
+	GameManager.activate_line_cut_skill()
+	
+	# 4. DISAPPEAR (Instead of joining line)
+	var fade_tween = create_tween()
+	fade_tween.tween_property(self, "modulate", Color(1, 1, 1, 0), 1.0)
+	
+	await fade_tween.finished
+	
+	# 5. DONE
+	GameManager.on_customer_left()
+	queue_free()
 
 # --- ITEMS & SHELF WAITING LOGIC ---
 
@@ -225,7 +234,6 @@ func start_searching_logic():
 	
 	var time_waited = 0.0
 	for i in range(10): 
-		# Safety check: If we were clicked during the wait, stop searching
 		if not can_be_clicked: return
 
 		await get_tree().create_timer(0.5).timeout
@@ -240,42 +248,34 @@ func start_searching_logic():
 			start_checkout()
 			return
 	
-	# 3. Failure Path -> ACTIVATE SKILL
+	# 3. Failure Path -> ACTIVATE EQUALIZER
 	print("Bird: Patience runs out! ACTIVATING EQUALIZER!")
 	trigger_equalizer_effect()
 
 func trigger_equalizer_effect():
-	# 1. LOCK STATE
 	can_be_clicked = false
-	current_state = State.EXITING_HOLY # Stops physics movement
+	current_state = State.EXITING_HOLY
 	velocity = Vector2.ZERO
 	anim.play("idle")
 	if patience_bar: patience_bar.visible = false
 	
-	# Leave queue if we were in it (edge case)
 	if GameManager.has_method("leave_queue"):
 		GameManager.leave_queue(self)
 	
-	# 2. GLOW PHASE (2 Seconds)
 	var tween = create_tween()
-	# Glow to bright white over 0.5s
 	tween.tween_property(self, "modulate", Color(10, 10, 10, 1), 0.5) 
-	# Stay bright for 1.5s
 	tween.tween_interval(1.5)
 	
 	await tween.finished
 	
-	# 3. EQUALIZE (The Magic)
 	var all_shelves = get_tree().get_nodes_in_group("Shelves")
 	GameManager.activate_equalizer_skill(all_shelves)
 	
-	# 4. DISAPPEAR PHASE
 	var fade_tween = create_tween()
 	fade_tween.tween_property(self, "modulate", Color(1, 1, 1, 0), 1.0)
 	
 	await fade_tween.finished
 	
-	# 5. Done
 	GameManager.on_customer_left() 
 	queue_free()
 

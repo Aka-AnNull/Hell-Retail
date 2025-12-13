@@ -101,9 +101,7 @@ func _physics_process(delta):
 	velocity = global_position.direction_to(next_pos) * move_speed
 	move_and_slide()
 	
-	# --- FLIP LOGIC (UPDATED FOR SLIME) ---
-	# Velocity < 0 (Moving Left) -> flip_h = false (Because sprite faces Left by default)
-	# Velocity > 0 (Moving Right) -> flip_h = true  (Flip to face Right)
+	# --- FLIP LOGIC ---
 	if velocity.x < 0: 
 		anim.flip_h = false
 	elif velocity.x > 0: 
@@ -119,8 +117,9 @@ func become_angry(reason: String):
 	
 	GameManager.take_damage(1)
 	
-	if reason == "Shelf Empty":
-		print("Slime: Empty Shelf! Moving to sabotage floor...")
+	# --- FIX: GO TO PUDDLE IF LINE FULL ---
+	if reason == "Shelf Empty" or reason == "Line Full":
+		print("Slime: Line Full or Empty Shelf! Moving to sabotage floor...")
 		var random_marker = ["Puddle1", "Puddle2", "Puddle3"].pick_random()
 		go_to_node(random_marker, State.TO_PUDDLE_MARKER)
 		
@@ -162,7 +161,7 @@ func get_served():
 	is_angry = false
 	update_animation()
 	
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	if GameManager.has_method("leave_queue"):
 		GameManager.leave_queue(self)
@@ -170,7 +169,7 @@ func get_served():
 	print("Slime: Payment done. Leaving!")
 	current_state = State.TO_MARKER_1_EXIT
 	is_served = false 
-	# Reset flip for exit (usually implies facing right/door, adjust if needed)
+	# Reset flip for exit
 	anim.flip_h = true 
 	go_to_node("Marker1", State.TO_MARKER_1_EXIT)
 
@@ -193,7 +192,7 @@ func handle_arrival():
 		State.TO_PUDDLE_MARKER:
 			spawn_puddle_here() 
 			leave_shop()        
-		# -------------------------------------
+		# --------------------------------
 		State.TO_CASHIER:
 			print("Slime: Arrived at line.")
 			current_state = State.WAITING_AT_CASHIER
@@ -241,6 +240,8 @@ func start_checkout():
 	if GameManager.has_method("join_queue"):
 		var can_join = GameManager.join_queue(self, max_queue_size)
 		if not can_join:
+			# --- FIX: REMOVED leave_shop() HERE ---
+			# We call become_angry with "Line Full", which moves him to sabotage spot.
 			become_angry("Line Full")
 			return
 	go_to_node("CashierZone", State.TO_CASHIER)
