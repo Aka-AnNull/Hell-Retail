@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bejarwpw7i7gx"]
+
+[ext_resource type="Texture2D" uid="uid://cdkv0g3pub5s7" path="res://Sprite/Customer/Slime/Puddle.png" id="1_bdjlx"]
+[ext_resource type="Script" uid="uid://cnjwqofidvara" path="res://Script/slime_puddle.gd" id="1_dmvkf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ibmpd"]
+radius = 77.98521
+height = 278.0714
+
+[node name="SlimePuddle" type="Area2D"]
+z_index = -1
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_dmvkf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(0.25, 0.2)
+texture = ExtResource("1_bdjlx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.575447
+shape = SubResource("CapsuleShape2D_ibmpd")

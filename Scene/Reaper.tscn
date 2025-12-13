@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://dvkwpn0vjwyoj"]
+
+[ext_resource type="Script" uid="uid://da7rb0pfcx33n" path="res://Script/reaper.gd" id="1_ob6uy"]
+[ext_resource type="Texture2D" uid="uid://dumemxipt10gu" path="res://Sprite/Customer/Reaper/ReaperA2.png" id="2_yvmtw"]
+[ext_resource type="Texture2D" uid="uid://db8xka4w0p6co" path="res://Sprite/Customer/Reaper/ReaperA1.png" id="3_6tw4w"]
+[ext_resource type="Texture2D" uid="uid://0lmw0tvdwkq5" path="res://Sprite/Customer/Reaper/Reaper1.png" id="4_vbpcf"]
+[ext_resource type="Texture2D" uid="uid://dqo0xyvvfp4ab" path="res://Sprite/Customer/Reaper/Reaper2.png" id="5_ob6uy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_002rt"]
+atlas = ExtResource("2_yvmtw")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2y02"]
+atlas = ExtResource("3_6tw4w")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sprcr"]
+atlas = ExtResource("4_vbpcf")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kfrv"]
+atlas = ExtResource("5_ob6uy")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xvby2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_002rt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_002rt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2y02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2y02")
+}],
+"loop": true,
+"name": &"angry",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sprcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sprcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kfrv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kfrv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uknkg"]
+radius = 17.0
+
+[node name="Reaper" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ob6uy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.2737368e-13, -4.5474735e-13)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_xvby2")
+animation = &"idle"
+centered = false
+offset = Vector2(-536, -1072)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uknkg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 50.0
+
+[node name="PatienceTimer" type="Timer" parent="."]
+one_shot = true

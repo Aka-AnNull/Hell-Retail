@@ -1,0 +1,105 @@
+[gd_scene load_steps=17 format=3 uid="uid://b67pvcym713ir"]
+
+[ext_resource type="Script" uid="uid://6g8yrsokvdb6" path="res://Script/JumoBoss.gd" id="1_2owdt"]
+[ext_resource type="PackedScene" uid="uid://bejarwpw7i7gx" path="res://Scene/SlimePuddle.tscn" id="2_aq8nl"]
+[ext_resource type="PackedScene" uid="uid://bguqhevy18nxk" path="res://Scene/Graveyard.tscn" id="3_irgsu"]
+[ext_resource type="Texture2D" uid="uid://d05wkqvpcwvjl" path="res://Sprite/Customer/Jumo/Junov2_1.png" id="4_lkvuo"]
+[ext_resource type="Texture2D" uid="uid://bwpyb3et1t4e" path="res://Sprite/Customer/Jumo/Jumo_1.png" id="5_xrusc"]
+[ext_resource type="Texture2D" uid="uid://bo0iq5flo1gvk" path="res://Sprite/Customer/Jumo/Junov2.png" id="6_28nde"]
+[ext_resource type="Texture2D" uid="uid://m12j4hq375ua" path="res://Sprite/Customer/Jumo/Jumo.png" id="7_mbgbj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngwri"]
+atlas = ExtResource("4_lkvuo")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk204"]
+atlas = ExtResource("5_xrusc")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ixkp"]
+atlas = ExtResource("6_28nde")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3c4qu"]
+atlas = ExtResource("6_28nde")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhycs"]
+atlas = ExtResource("7_mbgbj")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpak8"]
+atlas = ExtResource("6_28nde")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yach0"]
+atlas = ExtResource("7_mbgbj")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ay3b8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngwri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk204")
+}],
+"loop": true,
+"name": &"angry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ixkp")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3c4qu")
+}],
+"loop": true,
+"name": &"float",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhycs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpak8")
+}],
+"loop": true,
+"name": &"happy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yach0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yhycs"]
+radius = 66.0
+height = 170.0
+
+[node name="JumoBoss" type="CharacterBody2D"]
+script = ExtResource("1_2owdt")
+slime_puddle_scene = ExtResource("2_aq8nl")
+tombstone_scene = ExtResource("3_irgsu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.07609375, 0.07609375)
+sprite_frames = SubResource("SpriteFrames_ay3b8")
+animation = &"happy"
+frame_progress = 0.95573574
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_yhycs")

@@ -1,0 +1,139 @@
+[gd_scene load_steps=18 format=3 uid="uid://65lswhnnonmy"]
+
+[ext_resource type="Script" uid="uid://c2o4ox6mv7eee" path="res://Script/shelf.gd" id="1_b7wit"]
+[ext_resource type="Texture2D" uid="uid://bop1k4rg86y5g" path="res://Sprite/shelf/Shelf_7.png" id="2_b7wit"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="3_j7ngv"]
+[ext_resource type="Texture2D" uid="uid://q2gje3k1mfwi" path="res://Sprite/shelf/GuideA1.png" id="4_kd53u"]
+[ext_resource type="Texture2D" uid="uid://byrvlxlbns35b" path="res://Sprite/shelf/GuideA2.png" id="5_tokge"]
+[ext_resource type="Texture2D" uid="uid://b5n2cwus0swtx" path="res://Sprite/shelf/GuideA3.png" id="6_qayva"]
+[ext_resource type="Texture2D" uid="uid://cyxsrw52r48vr" path="res://Sprite/shelf/GuideA4.png" id="7_ai6vf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dc3cn"]
+size = Vector2(111, 147)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_owmnp"]
+size = Vector2(49, 181)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vbnbp"]
+font = ExtResource("3_j7ngv")
+font_size = 47
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hl1x8"]
+font = ExtResource("3_j7ngv")
+font_size = 70
+font_color = Color(1, 0, 0, 1)
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sykc"]
+atlas = ExtResource("4_kd53u")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihku5"]
+atlas = ExtResource("5_tokge")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry154"]
+atlas = ExtResource("6_qayva")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkhhw"]
+atlas = ExtResource("7_ai6vf")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oiuo5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sykc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihku5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ry154")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkhhw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ry154")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihku5")
+}],
+"loop": true,
+"name": &"bounce",
+"speed": 6.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xfv8v"]
+line_spacing = 0.0
+font = ExtResource("3_j7ngv")
+font_size = 34
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Shelf" type="Area2D"]
+script = ExtResource("1_b7wit")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+position = Vector2(3.999999, -91)
+scale = Vector2(0.054453135, 0.056068953)
+texture = ExtResource("2_b7wit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-28.5, -74.5)
+shape = SubResource("RectangleShape2D_dc3cn")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, -9.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(2.5, -81)
+shape = SubResource("RectangleShape2D_owmnp")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+y_sort_enabled = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -139.0
+offset_right = 27.0
+offset_bottom = -101.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+text = "0/6"
+label_settings = SubResource("LabelSettings_vbnbp")
+
+[node name="MaxLabel" type="Label" parent="."]
+offset_left = -63.0
+offset_top = -216.0
+offset_right = 25.0
+offset_bottom = -160.0
+text = "MAX"
+label_settings = SubResource("LabelSettings_hl1x8")
+
+[node name="GuideArrow" type="AnimatedSprite2D" parent="."]
+position = Vector2(-27.999998, -200)
+rotation = -0.29526487
+scale = Vector2(0.65625, 0.65625)
+sprite_frames = SubResource("SpriteFrames_oiuo5")
+animation = &"bounce"
+frame_progress = 0.7229691
+
+[node name="PromptLabel" type="Label" parent="."]
+z_index = 2
+offset_left = -102.0
+offset_top = -107.0
+offset_right = 22.0
+offset_bottom = -79.0
+text = "[E] interact"
+label_settings = SubResource("LabelSettings_xfv8v")

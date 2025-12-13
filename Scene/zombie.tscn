@@ -1,0 +1,152 @@
+[gd_scene load_steps=23 format=3 uid="uid://bfrfq4235i5lq"]
+
+[ext_resource type="Script" uid="uid://bt5pipk48h0rv" path="res://Script/zombie.gd" id="1_dicts"]
+[ext_resource type="Texture2D" uid="uid://cfaecxsup0nid" path="res://Sprite/Customer/Zombie/ZombieA1.png" id="2_m5h45"]
+[ext_resource type="PackedScene" uid="uid://bguqhevy18nxk" path="res://Scene/Graveyard.tscn" id="2_xv332"]
+[ext_resource type="Texture2D" uid="uid://fxlx5li6m10v" path="res://Sprite/Customer/Zombie/ZombieA2.png" id="3_xv332"]
+[ext_resource type="Texture2D" uid="uid://de3vv3jjc4dp" path="res://Sprite/Customer/Zombie/ZombieA3.png" id="4_o8rcf"]
+[ext_resource type="Texture2D" uid="uid://blicvdpk5cfb" path="res://Sprite/Customer/Zombie/ZombieAW1.png" id="5_2wbj4"]
+[ext_resource type="Texture2D" uid="uid://cybb0vu78cgpd" path="res://Sprite/Customer/Zombie/Zombie1.png" id="5_vyth4"]
+[ext_resource type="Texture2D" uid="uid://d06k8injhbkdt" path="res://Sprite/Customer/Zombie/Zombie2.png" id="6_dicts"]
+[ext_resource type="Texture2D" uid="uid://lse8tpfd6drp" path="res://Sprite/Customer/Zombie/Zombie3.png" id="7_m5h45"]
+[ext_resource type="Texture2D" uid="uid://hlwqyh5ylncp" path="res://Sprite/Customer/Zombie/ZombieW1.png" id="9_vrwv6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jneds"]
+atlas = ExtResource("2_m5h45")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgdd5"]
+atlas = ExtResource("3_xv332")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbvdy"]
+atlas = ExtResource("4_o8rcf")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr5mx"]
+atlas = ExtResource("2_m5h45")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d88s"]
+atlas = ExtResource("5_2wbj4")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv332"]
+atlas = ExtResource("5_vyth4")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8rcf"]
+atlas = ExtResource("6_dicts")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wbj4"]
+atlas = ExtResource("7_m5h45")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1ecj"]
+atlas = ExtResource("5_vyth4")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kouw7"]
+atlas = ExtResource("9_vrwv6")
+region = Rect2(0, 0, 1072, 1072)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xvby2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jneds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jneds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jneds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgdd5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbvdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgdd5")
+}],
+"loop": true,
+"name": &"angry_idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xr5mx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1d88s")
+}],
+"loop": true,
+"name": &"angry_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv332")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv332")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv332")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8rcf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wbj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8rcf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1ecj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kouw7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uknkg"]
+radius = 17.0
+
+[node name="Zombie" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_dicts")
+graveyard_scene = ExtResource("2_xv332")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.2737368e-13, -4.5474735e-13)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_xvby2")
+animation = &"idle"
+frame = 4
+frame_progress = 0.46096164
+centered = false
+offset = Vector2(-536, -952)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uknkg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 50.0
+
+[node name="PatienceTimer" type="Timer" parent="."]
+one_shot = true

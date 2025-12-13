@@ -14,7 +14,7 @@ func _ready():
 	else:
 		level_label.text = "Level " + str(current_lvl)
 
-func _process(delta):
+func _process(_delta):
 	# 2. Wait for player to press Space
 	if Input.is_action_just_pressed("ui_accept"):
 		print("Starting Level...")

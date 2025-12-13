@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bguqhevy18nxk"]
+
+[ext_resource type="Script" uid="uid://biys7en4kuu4b" path="res://Script/graveyard.gd" id="1_vgeqc"]
+[ext_resource type="Texture2D" uid="uid://oygqeef50410" path="res://Sprite/Customer/Zombie/Tombstone.png" id="2_o2htt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgeqc"]
+radius = 33.0
+height = 82.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2htt"]
+size = Vector2(92, 36)
+
+[node name="Graveyard" type="StaticBody2D"]
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_vgeqc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_o2htt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(1, 6)
+shape = SubResource("CapsuleShape2D_vgeqc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 28)
+shape = SubResource("RectangleShape2D_o2htt")

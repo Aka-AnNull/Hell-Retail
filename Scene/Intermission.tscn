@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cv7dmhyslrch1"]
+[gd_scene load_steps=6 format=3 uid="uid://cv7dmhyslrch1"]
 
 [ext_resource type="Script" uid="uid://e1s6bvx63i55" path="res://Script/Intermission.gd" id="1_142g4"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="2_dt26l"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="2_ssq48"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5edra"]
-font_size = 122
+font = ExtResource("2_ssq48")
+font_size = 165
 
 [sub_resource type="LabelSettings" id="LabelSettings_142g4"]
-font_size = 37
+font = ExtResource("2_ssq48")
+font_size = 77
 
 [node name="Intermission" type="Control"]
 layout_mode = 3
@@ -26,20 +29,32 @@ offset_bottom = 40.0
 color = Color(0.06666667, 0, 0.16078432, 1)
 
 [node name="LevelLabel" type="Label" parent="."]
-layout_mode = 0
-offset_right = 407.0
-offset_bottom = 167.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -567.5
+offset_right = 567.5
+offset_bottom = 227.0
+grow_horizontal = 2
 text = "Level 1"
 label_settings = SubResource("LabelSettings_5edra")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
-layout_mode = 0
-offset_left = 428.0
-offset_top = 322.0
-offset_right = 821.0
-offset_bottom = 373.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -287.0
+offset_top = -159.0
+offset_right = 290.0
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "\"Press SPACE to Start\""
 label_settings = SubResource("LabelSettings_142g4")
 horizontal_alignment = 1

@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://csch13p5msvkg"]
+
+[ext_resource type="Script" uid="uid://c3q3lffqxiy62" path="res://Script/stock_pile.gd" id="1_wl36f"]
+[ext_resource type="Texture2D" uid="uid://qrvq6cy48qkl" path="res://Sprite/shelf/Whatee_1.png" id="2_njecd"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="3_njecd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wl36f"]
+size = Vector2(157.5, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcfx3"]
+size = Vector2(154, 36)
+
+[sub_resource type="LabelSettings" id="LabelSettings_k6gw2"]
+line_spacing = 0.0
+font = ExtResource("3_njecd")
+font_size = 34
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+
+[node name="StockPile" type="Area2D"]
+script = ExtResource("1_wl36f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.25, -15)
+shape = SubResource("RectangleShape2D_wl36f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4, -76)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_njecd")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-4, -76)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 58)
+shape = SubResource("RectangleShape2D_qcfx3")
+
+[node name="PromptLabel" type="Label" parent="."]
+z_index = 2
+offset_left = -61.0
+offset_top = -121.0
+offset_right = 63.0
+offset_bottom = -93.0
+text = "[E] interact"
+label_settings = SubResource("LabelSettings_k6gw2")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

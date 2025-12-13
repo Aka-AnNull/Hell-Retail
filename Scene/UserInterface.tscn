@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://dt6myf7lkv4tw"]
+
+[ext_resource type="Script" uid="uid://clkcwakwxaoa3" path="res://Script/user_interface.gd" id="1_pldcl"]
+[ext_resource type="Texture2D" uid="uid://ced4lwnw4f00l" path="res://Sprite/player/HP.png" id="2_d0v7v"]
+[ext_resource type="Texture2D" uid="uid://b7mgct2f0pdp0" path="res://Sprite/player/HPlose.png" id="3_71i60"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="4_d0v7v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_71i60"]
+font = ExtResource("4_d0v7v")
+font_size = 77
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_pldcl")
+full_heart_texture = ExtResource("2_d0v7v")
+empty_heart_texture = ExtResource("3_71i60")
+
+[node name="HeartContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 60.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect6" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect7" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect8" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect9" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect10" type="TextureRect" parent="HeartContainer"]
+layout_mode = 2
+texture = ExtResource("2_d0v7v")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SetupLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -208.0
+offset_top = 3.0
+offset_right = 249.0
+offset_bottom = 65.0
+text = "SHOP OPENS IN: 20"
+label_settings = SubResource("LabelSettings_71i60")
