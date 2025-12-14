@@ -4,11 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dejrwhdgydt1b" path="res://Sprite/BG/BG_FULL.png" id="2_ey4v6"]
 [ext_resource type="Texture2D" uid="uid://cxtqcyowin570" path="res://Sprite/BG/Door1.png" id="3_jmfok"]
 [ext_resource type="PackedScene" uid="uid://b67pvcym713ir" path="res://Scene/JumoBoss.tscn" id="4_3b8vg"]
-[ext_resource type="Texture2D" uid="uid://brhdjv0s50ksd" path="res://Sprite/Shadow.png" id="4_g1o07"]
+[ext_resource type="Texture2D" uid="uid://brhdjv0s50ksd" path="res://Sprite/Shadow/Shadow.png" id="4_g1o07"]
 [ext_resource type="Texture2D" uid="uid://ds3e58sksl5fm" path="res://Sprite/BG/Torch1.png" id="4_tgbpb"]
 [ext_resource type="Texture2D" uid="uid://c5o5fpfcx807y" path="res://Sprite/BG/Torch2.png" id="5_eu6r5"]
-[ext_resource type="Texture2D" uid="uid://cr7uepfxsrmqt" path="res://Sprite/Shadow_2.png" id="5_ey4v6"]
+[ext_resource type="Texture2D" uid="uid://cr7uepfxsrmqt" path="res://Sprite/Shadow/Shadow_2.png" id="5_ey4v6"]
 [ext_resource type="Texture2D" uid="uid://cptmg7k8q6dik" path="res://Sprite/BG/Torch3.png" id="6_f5v0o"]
+[ext_resource type="Texture2D" uid="uid://d0gt3ers75mkt" path="res://Sprite/Shadow/Shadow_3.png" id="6_jmfok"]
 [ext_resource type="Script" uid="uid://cqbffiaqbawns" path="res://Script/cashier_zone.gd" id="7_jltb5"]
 [ext_resource type="SpriteFrames" uid="uid://cp1ilsbuubrbc" path="res://Resorces/MinigameCoinFrames.tres" id="8_hrymr"]
 [ext_resource type="Texture2D" uid="uid://capkovydn2v7g" path="res://Sprite/shelf/What_7.png" id="9_xkkke"]
@@ -45,7 +46,6 @@
 [ext_resource type="PackedScene" uid="uid://d1b8rrv1u73gp" path="res://Scene/WatchingBird.tscn" id="42_4jxbe"]
 [ext_resource type="PackedScene" uid="uid://dt6myf7lkv4tw" path="res://Scene/UserInterface.tscn" id="43_4y77y"]
 [ext_resource type="PackedScene" uid="uid://l1bhryukeiwu" path="res://Scene/player.tscn" id="44_4kkl6"]
-[ext_resource type="Texture2D" uid="uid://b16s37ubhbujh" path="res://Sprite/pixil-frame-0 (5).png" id="44_jmfok"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="45_akgdu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qma8"]
@@ -250,13 +250,7 @@ texture = ExtResource("5_ey4v6")
 z_index = -2
 position = Vector2(80, 625)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("44_jmfok")
-
-[node name="Sprite2D8" type="Sprite2D" parent="Shadow"]
-z_index = -2
-position = Vector2(82, 517)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("44_jmfok")
+texture = ExtResource("6_jmfok")
 
 [node name="Sprite2D9" type="Sprite2D" parent="Shadow"]
 z_index = -1
@@ -519,6 +513,7 @@ offset_right = 652.0
 offset_bottom = 48.0
 
 [node name="BossUI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="IncomingLabel" type="Label" parent="BossUI"]
 z_index = 2

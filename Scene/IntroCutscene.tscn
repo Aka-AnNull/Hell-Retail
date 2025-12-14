@@ -1,0 +1,46 @@
+[gd_scene load_steps=11 format=3 uid="uid://bay0gtgjgxk33"]
+
+[ext_resource type="PackedScene" uid="uid://c8jv0solcykkc" path="res://Scene/ComicStoryboard.tscn" id="1_j6bub"]
+[ext_resource type="Texture2D" uid="uid://ds7pw5p5bg7vm" path="res://Sprite/Intro/CS_1.png" id="2_whemm"]
+[ext_resource type="Texture2D" uid="uid://dit8bs8nidutq" path="res://Sprite/Intro/CS_2.png" id="3_xulls"]
+[ext_resource type="Texture2D" uid="uid://ccg28heiv6y6o" path="res://Sprite/Intro/CS_3.png" id="4_k6bd4"]
+[ext_resource type="Texture2D" uid="uid://b54dg7evpq7ro" path="res://Sprite/Intro/CS_4.png" id="5_2r3ah"]
+[ext_resource type="Texture2D" uid="uid://b4ytrjs5cmcw8" path="res://Sprite/Intro/CS_5.png" id="6_sj715"]
+[ext_resource type="Texture2D" uid="uid://bfjuku5focotn" path="res://Sprite/Intro/CS_6.png" id="7_ndftq"]
+[ext_resource type="Texture2D" uid="uid://bleaddde7vapd" path="res://Sprite/Intro/CS_7.png" id="8_j1grk"]
+[ext_resource type="Texture2D" uid="uid://3oib0kfed5j7" path="res://Sprite/Intro/CS_8.png" id="9_73np8"]
+[ext_resource type="Texture2D" uid="uid://enlj0ohfekx2" path="res://Sprite/Intro/CS_9.png" id="10_4h0k8"]
+
+[node name="ComicStoryboard" instance=ExtResource("1_j6bub")]
+comic_images = Array[Texture2D]([ExtResource("2_whemm"), ExtResource("3_xulls"), ExtResource("4_k6bd4"), ExtResource("5_2r3ah"), ExtResource("6_sj715"), ExtResource("7_ndftq"), ExtResource("8_j1grk"), ExtResource("9_73np8"), ExtResource("10_4h0k8")])
+next_scene_path = "uid://cv7dmhyslrch1"
+
+[node name="Panel1" parent="VBoxContainer/GridContainer" index="0"]
+texture = ExtResource("2_whemm")
+
+[node name="Panel2" parent="VBoxContainer/GridContainer" index="1"]
+texture = ExtResource("3_xulls")
+
+[node name="Panel3" parent="VBoxContainer/GridContainer" index="2"]
+texture = ExtResource("4_k6bd4")
+
+[node name="Panel4" parent="VBoxContainer/GridContainer" index="3"]
+texture = ExtResource("5_2r3ah")
+
+[node name="Panel5" parent="VBoxContainer/GridContainer" index="4"]
+texture = ExtResource("6_sj715")
+
+[node name="Panel6" parent="VBoxContainer/GridContainer" index="5"]
+texture = ExtResource("7_ndftq")
+
+[node name="Panel7" parent="VBoxContainer/GridContainer" index="6"]
+texture = ExtResource("8_j1grk")
+
+[node name="Panel8" parent="VBoxContainer/GridContainer" index="7"]
+texture = ExtResource("9_73np8")
+
+[node name="Panel9" parent="VBoxContainer/GridContainer" index="8"]
+texture = ExtResource("10_4h0k8")
+
+[node name="Timer" parent="." index="2"]
+wait_time = 4.0

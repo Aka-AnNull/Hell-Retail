@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brhdjv0s50ksd"
-path="res://.godot/imported/Shadow.png-eb54c14f4d63fba5870303a5552b07b2.ctex"
+uid="uid://dqvpj8f874u3r"
+path="res://.godot/imported/intermission_2.png-8ceb37dd13f2802b14c5ca173414c175.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite/Shadow.png"
-dest_files=["res://.godot/imported/Shadow.png-eb54c14f4d63fba5870303a5552b07b2.ctex"]
+source_file="res://Sprite/Intermission/intermission_2.png"
+dest_files=["res://.godot/imported/intermission_2.png-8ceb37dd13f2802b14c5ca173414c175.ctex"]
 
 [params]
 

@@ -33,9 +33,12 @@ func _on_quit_pressed():
 
 func _on_fade_timer_timeout():
 	print("TIMER FINISHED! ATTEMPTING TO SWITCH SCENE...")
-	if button_type == "start" :
+	
+	if button_type == "start":
+		# Just call the manager! It handles the rest.
 		GameManager.start_game()
-	elif button_type == "setting" :
+		
+	elif button_type == "setting":
 		pass
 
 func _on_start_mouse_entered() -> void:

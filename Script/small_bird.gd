@@ -167,7 +167,7 @@ func get_served():
 		print("Bird: Service complete! Granting Player Speed Boost.")
 		var player = get_tree().get_first_node_in_group("Player")
 		if player and player.has_method("apply_speed_boost"):
-			player.apply_speed_boost(5.0) 
+			player.apply_speed_boost(10.0) 
 	else:
 		print("Bird: Service complete, but I stayed angry.")
 	
