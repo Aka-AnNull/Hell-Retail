@@ -1,7 +1,7 @@
 extends Node
 
 # --- CONFIGURATION ---
-var current_level = 9
+var current_level = 1
 var max_levels = 9
 var max_hp : int = 10
 var current_hp : int = 10

@@ -7,7 +7,7 @@ extends Node2D
 
 # --- SETUP VARIABLES ---
 # CHANGED: Set to 3.0 for testing (Change back to 21.0 when done!)
-var setup_time : float = 3.0 
+var setup_time : float = 21.0 
 var is_setup_phase : bool = true
 
 func _ready():
