@@ -18,7 +18,7 @@ extends Node2D
 # Format: LevelNumber: { CustomerNumber: "Name" }
 var specific_spawns = {
 	1: {
-		1: "LongBird"
+		1: "Ghost"
 	},
 	2: {
 		1: "Zombie"

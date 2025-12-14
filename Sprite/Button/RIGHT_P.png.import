@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr7uepfxsrmqt"
-path="res://.godot/imported/Shadow_2.png-733313a73ebf5fde77af0f7e0403981b.ctex"
+uid="uid://ccxs0xl2gpfjr"
+path="res://.godot/imported/RIGHT_P.png-c21ada3ca0db7396bade8929e13aed8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite/Shadow_2.png"
-dest_files=["res://.godot/imported/Shadow_2.png-733313a73ebf5fde77af0f7e0403981b.ctex"]
+source_file="res://Sprite/Button/RIGHT_P.png"
+dest_files=["res://.godot/imported/RIGHT_P.png-c21ada3ca0db7396bade8929e13aed8f.ctex"]
 
 [params]
 

@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://qpenexlq48bu"]
+
+[ext_resource type="Script" uid="uid://cyf7b6uysy85u" path="res://Script/level_complete.gd" id="1_xo22k"]
+[ext_resource type="Texture2D" uid="uid://bnf3u5win5wxb" path="res://Sprite/shelf/Coin/Coin2.png" id="2_5c2el"]
+[ext_resource type="Texture2D" uid="uid://b4ekic07n7bj2" path="res://Sprite/Button/LevelP.png" id="2_u8xg8"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="2_wr7hd"]
+[ext_resource type="Texture2D" uid="uid://iiwi5lchm4t8" path="res://Sprite/Button/COMPLETEGOLD.png" id="3_5c2el"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u8xg8"]
+font = ExtResource("2_wr7hd")
+font_size = 45
+
+[node name="LevelComplete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xo22k")
+
+[node name="RedBackground" type="ColorRect" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.50074106, 1.2153015e-06, 1.4439226e-07, 1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(639, -38)
+emitting = false
+amount = 50
+texture = ExtResource("2_5c2el")
+lifetime = 1.25
+emission_shape = 3
+emission_rect_extents = Vector2(640, 1)
+angular_velocity_min = -100.0
+angular_velocity_max = 100.0
+angle_max = 360.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+
+[node name="SkipText" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -159.0
+offset_top = -66.0
+offset_right = 159.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "\"Press SPACE to skip\""
+label_settings = SubResource("LabelSettings_u8xg8")
+
+[node name="LevelSprite" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(638, 173)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_u8xg8")
+
+[node name="CompleteSprite" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(640, 423)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_5c2el")
+
+[node name="FadeOverlay" type="ColorRect" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

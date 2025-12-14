@@ -1,18 +1,18 @@
-[gd_scene load_steps=74 format=3 uid="uid://bhkkxgqsmks02"]
+[gd_scene load_steps=75 format=3 uid="uid://bhkkxgqsmks02"]
 
 [ext_resource type="Script" uid="uid://bjomty5twa62f" path="res://Script/level.gd" id="1_or6n4"]
 [ext_resource type="PackedScene" uid="uid://l1bhryukeiwu" path="res://Scene/player.tscn" id="2_jnrmd"]
 [ext_resource type="Texture2D" uid="uid://dejrwhdgydt1b" path="res://Sprite/BG/BG_FULL.png" id="2_leq4y"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="2_tut6d"]
-[ext_resource type="Texture2D" uid="uid://brhdjv0s50ksd" path="res://Sprite/Shadow.png" id="3_ajwgv"]
+[ext_resource type="Texture2D" uid="uid://brhdjv0s50ksd" path="res://Sprite/Shadow/Shadow.png" id="3_ajkoj"]
 [ext_resource type="Texture2D" uid="uid://cxtqcyowin570" path="res://Sprite/BG/Door1.png" id="3_leq4y"]
 [ext_resource type="Texture2D" uid="uid://capkovydn2v7g" path="res://Sprite/shelf/What_7.png" id="3_ovno7"]
 [ext_resource type="Script" uid="uid://ddvwicdjtcvm4" path="res://Script/spawner.gd" id="3_slp34"]
-[ext_resource type="Texture2D" uid="uid://cr7uepfxsrmqt" path="res://Sprite/Shadow_2.png" id="4_cgk27"]
+[ext_resource type="Texture2D" uid="uid://cr7uepfxsrmqt" path="res://Sprite/Shadow/Shadow_2.png" id="4_ajwgv"]
 [ext_resource type="Texture2D" uid="uid://ds3e58sksl5fm" path="res://Sprite/BG/Torch1.png" id="4_efcd0"]
 [ext_resource type="SpriteFrames" uid="uid://cp1ilsbuubrbc" path="res://Resorces/MinigameCoinFrames.tres" id="5_78rtw"]
+[ext_resource type="Texture2D" uid="uid://d0gt3ers75mkt" path="res://Sprite/Shadow/Shadow_3.png" id="5_ajwgv"]
 [ext_resource type="Texture2D" uid="uid://c5o5fpfcx807y" path="res://Sprite/BG/Torch2.png" id="5_pkw38"]
-[ext_resource type="Texture2D" uid="uid://b16s37ubhbujh" path="res://Sprite/pixil-frame-0 (5).png" id="5_pt8na"]
 [ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="6_3d31u"]
 [ext_resource type="Texture2D" uid="uid://cptmg7k8q6dik" path="res://Sprite/BG/Torch3.png" id="6_4kkk5"]
 [ext_resource type="PackedScene" uid="uid://tws0wveogunt" path="res://Scene/Shelf.tscn" id="6_p7rx0"]
@@ -50,9 +50,10 @@
 [ext_resource type="SpriteFrames" uid="uid://cnlbtf2dllnjd" path="res://Resorces/Sprite_Cola.tres" id="29_h3fn6"]
 [ext_resource type="PackedScene" uid="uid://s5qid0iqw0dl" path="res://Scene/Long_bird.tscn" id="29_ofkvw"]
 [ext_resource type="SpriteFrames" uid="uid://yfk8gtwlpslg" path="res://Resorces/Sprite_Pepsi.tres" id="29_r86c8"]
-[ext_resource type="SpriteFrames" uid="uid://0qndh2gwbvxy" path="res://Resorces/sprite_coke.tres" id="31_bqm8m"]
+[ext_resource type="SpriteFrames" uid="uid://0qndh2gwbvxy" path="res://Resorces/Sprite_Coke.tres" id="31_bqm8m"]
 [ext_resource type="SpriteFrames" uid="uid://p2u5223dnhqh" path="res://Resorces/Sprite_Sprite.tres" id="31_qim27"]
 [ext_resource type="PackedScene" uid="uid://d1b8rrv1u73gp" path="res://Scene/WatchingBird.tscn" id="37_leq4y"]
+[ext_resource type="PackedScene" uid="uid://bvov4ngvfynj3" path="res://Scene/PauseMenu.tscn" id="54_cgk27"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qma8"]
 size = Vector2(25, 395.5)
@@ -213,55 +214,49 @@ metadata/_edit_lock_ = true
 z_index = -1
 position = Vector2(752.00006, 482.75)
 scale = Vector2(0.26689816, 0.21898155)
-texture = ExtResource("3_ajwgv")
+texture = ExtResource("3_ajkoj")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Shadow"]
 z_index = -1
 position = Vector2(752, 652)
 scale = Vector2(0.26689816, 0.21898155)
-texture = ExtResource("3_ajwgv")
+texture = ExtResource("3_ajkoj")
 
 [node name="Sprite2D3" type="Sprite2D" parent="Shadow"]
 z_index = -1
 position = Vector2(1033, 650.99994)
 scale = Vector2(0.26689816, 0.21898155)
-texture = ExtResource("3_ajwgv")
+texture = ExtResource("3_ajkoj")
 
 [node name="Sprite2D4" type="Sprite2D" parent="Shadow"]
 z_index = -1
 position = Vector2(1033, 481.99994)
 scale = Vector2(0.26689816, 0.21898155)
-texture = ExtResource("3_ajwgv")
+texture = ExtResource("3_ajkoj")
 
 [node name="Sprite2D5" type="Sprite2D" parent="Shadow"]
 z_index = -2
-position = Vector2(485.46878, 299)
-scale = Vector2(0.12690964, 0.6481482)
-texture = ExtResource("3_ajwgv")
+position = Vector2(508.50003, 202.49998)
+scale = Vector2(0.4657407, 0.23796295)
+texture = ExtResource("4_ajwgv")
 
 [node name="Sprite2D6" type="Sprite2D" parent="Shadow"]
 z_index = -2
 position = Vector2(1223.5, 449.00003)
 scale = Vector2(0.15277778, 0.5574074)
-texture = ExtResource("4_cgk27")
+texture = ExtResource("4_ajwgv")
 
 [node name="Sprite2D7" type="Sprite2D" parent="Shadow"]
-z_index = -2
+z_index = -1
 position = Vector2(80, 625)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("5_pt8na")
-
-[node name="Sprite2D8" type="Sprite2D" parent="Shadow"]
-z_index = -2
-position = Vector2(82, 517)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("5_pt8na")
+texture = ExtResource("5_ajwgv")
 
 [node name="Sprite2D9" type="Sprite2D" parent="Shadow"]
 z_index = -1
 position = Vector2(160.5, 143)
 scale = Vector2(0.37870374, 0.21898155)
-texture = ExtResource("3_ajwgv")
+texture = ExtResource("3_ajkoj")
 
 [node name="Map Border" type="StaticBody2D" parent="."]
 position = Vector2(65, 45)
@@ -544,3 +539,6 @@ position = Vector2(929, 280)
 
 [node name="Fade_transition" parent="." instance=ExtResource("2_tut6d")]
 z_index = 5
+
+[node name="PauseMenu" parent="." instance=ExtResource("54_cgk27")]
+visible = false

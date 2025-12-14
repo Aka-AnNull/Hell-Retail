@@ -1,12 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://cv7dmhyslrch1"]
+[gd_scene load_steps=11 format=3 uid="uid://cv7dmhyslrch1"]
 
 [ext_resource type="Script" uid="uid://e1s6bvx63i55" path="res://Script/Intermission.gd" id="1_142g4"]
+[ext_resource type="Texture2D" uid="uid://bdhr7b4raa0aa" path="res://Sprite/Button/Left_NP.png" id="2_cphdp"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="2_dt26l"]
+[ext_resource type="Texture2D" uid="uid://dejrwhdgydt1b" path="res://Sprite/BG/BG_FULL.png" id="2_p2yvp"]
 [ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="2_ssq48"]
+[ext_resource type="Texture2D" uid="uid://3vmywx6iqrux" path="res://Sprite/Button/Left_P.png" id="3_p2yvp"]
+[ext_resource type="Texture2D" uid="uid://dqcgqrl4lra2k" path="res://Sprite/Button/RIGHT_NP.png" id="4_mpev5"]
+[ext_resource type="Texture2D" uid="uid://ccxs0xl2gpfjr" path="res://Sprite/Button/RIGHT_P.png" id="5_m3ce3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5edra"]
 font = ExtResource("2_ssq48")
-font_size = 165
+font_size = 145
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_142g4"]
 font = ExtResource("2_ssq48")
@@ -28,6 +35,78 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.06666667, 0, 0.16078432, 1)
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(414.00003, 256)
+scale = Vector2(1.356662, 1.3566619)
+texture = ExtResource("2_p2yvp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(800, 350)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -75.0
+offset_right = 400.0
+offset_bottom = 275.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftButton" type="TextureButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 350)
+layout_mode = 2
+texture_normal = ExtResource("2_cphdp")
+texture_pressed = ExtResource("3_p2yvp")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SlidePanel" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+
+[node name="ImageMode" type="HBoxContainer" parent="HBoxContainer/SlidePanel"]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+
+[node name="SlideImage" type="TextureRect" parent="HBoxContainer/SlidePanel/ImageMode"]
+custom_minimum_size = Vector2(348, 350)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SideLabel" type="RichTextLabel" parent="HBoxContainer/SlidePanel/ImageMode"]
+custom_minimum_size = Vector2(348, 350)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("2_ssq48")
+theme_override_fonts/bold_font = ExtResource("2_ssq48")
+bbcode_enabled = true
+text = "Hell"
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="TextMode" type="RichTextLabel" parent="HBoxContainer/SlidePanel"]
+custom_minimum_size = Vector2(700, 350)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_ssq48")
+theme_override_fonts/bold_font = ExtResource("2_ssq48")
+bbcode_enabled = true
+text = "A"
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightButton" type="TextureButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 350)
+layout_mode = 2
+texture_normal = ExtResource("4_mpev5")
+texture_pressed = ExtResource("5_m3ce3")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="LevelLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
@@ -42,17 +121,17 @@ label_settings = SubResource("LabelSettings_5edra")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="."]
+[node name="SpaceLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -287.0
-offset_top = -159.0
-offset_right = 290.0
-offset_bottom = -97.0
+offset_left = -288.5
+offset_top = -70.0
+offset_right = 288.5
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "\"Press SPACE to Start\""
@@ -62,3 +141,6 @@ vertical_alignment = 1
 
 [node name="Fade_transition" parent="." instance=ExtResource("2_dt26l")]
 layout_mode = 0
+
+[connection signal="pressed" from="HBoxContainer/LeftButton" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/RightButton" to="." method="_on_right_button_pressed"]

@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=3 uid="uid://0732m3hemj0"]
+
+[ext_resource type="Script" uid="uid://di3lynjdv7nmf" path="res://Script/settings_menu.gd" id="1_ja44g"]
+[ext_resource type="Texture2D" uid="uid://qvrvujguuwfk" path="res://Sprite/Button/Box.png" id="2_m2uj1"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="3_5j6u0"]
+[ext_resource type="Texture2D" uid="uid://dahg83bad2ioi" path="res://Sprite/Button/BACK_NG.png" id="4_8ijbb"]
+[ext_resource type="Texture2D" uid="uid://41r82p1cmpis" path="res://Sprite/Button/BACK_G.png" id="5_e7u0x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_252gt"]
+font = ExtResource("3_5j6u0")
+font_size = 50
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kqhgn"]
+font = ExtResource("3_5j6u0")
+font_size = 50
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tfpf4"]
+font = ExtResource("3_5j6u0")
+font_size = 50
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="SettingsMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_ja44g")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Window" type="Control" parent="."]
+custom_minimum_size = Vector2(300, 600)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -325.0
+offset_right = 300.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_right = 612.0
+offset_bottom = 612.0
+texture = ExtResource("2_m2uj1")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="SliderBox" type="VBoxContainer" parent="Window"]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 68.0
+offset_right = 503.0
+offset_bottom = 229.0
+
+[node name="MasterLabel" type="Label" parent="Window/SliderBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "MASTER VOLUME"
+label_settings = SubResource("LabelSettings_252gt")
+
+[node name="MasterSlider" type="HSlider" parent="Window/SliderBox"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[node name="MusicLabel" type="Label" parent="Window/SliderBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "MUSIC VOLUME"
+label_settings = SubResource("LabelSettings_kqhgn")
+
+[node name="MusicSlider" type="HSlider" parent="Window/SliderBox"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[node name="SFXLabel" type="Label" parent="Window/SliderBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SFX VOLUME"
+label_settings = SubResource("LabelSettings_tfpf4")
+
+[node name="SFXSlider" type="HSlider" parent="Window/SliderBox"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[node name="BackButton" type="TextureButton" parent="Window"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 470.0
+offset_bottom = 560.0
+texture_normal = ExtResource("4_8ijbb")
+texture_pressed = ExtResource("5_e7u0x")
+texture_hover = ExtResource("5_e7u0x")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="Window/BackButton" to="." method="_on_back_button_pressed"]

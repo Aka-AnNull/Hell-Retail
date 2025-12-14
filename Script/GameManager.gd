@@ -1,7 +1,7 @@
 extends Node
 
 # --- CONFIGURATION ---
-var current_level = 1
+var current_level = 7
 var max_levels = 8
 var max_hp : int = 10 
 var current_hp : int = 10
@@ -20,13 +20,13 @@ var player_node = null
 
 # --- DATA ---
 var level_data = {
-	1: {"spawn_count": 14, "spawn_rate": 10.0, "text": "Level 1:\n'Opening Day'"},
-	2: {"spawn_count": 18, "spawn_rate": 9.0, "text": "Level 2:\n'Lunch Rush'"},
-	3: {"spawn_count": 22, "spawn_rate": 8.0, "text": "Level 3:\n'Weekend Sale'"},
-	4: {"spawn_count": 28, "spawn_rate": 7.0, "text": "Level 4:\n'Black Friday'"},
-	5: {"spawn_count": 50, "spawn_rate": 7.0, "text": "Level 5:\n'Holiday Season'"},
-	6: {"spawn_count": 34, "spawn_rate": 6.5, "text": "Level 6:\n'Total Chaos'"},
-	7: {"spawn_count": 40, "spawn_rate": 6.0, "text": "Level 7:\n'HELL RETAIL'"}
+	1: {"spawn_count": 14, "spawn_rate": 10.0, "text": "Level 1\n'Opening Day'"},
+	2: {"spawn_count": 18, "spawn_rate": 9.0, "text": "Level 2\n'Lunch Rush'"},
+	3: {"spawn_count": 22, "spawn_rate": 8.0, "text": "Level 3\n'Weekend Sale'"},
+	4: {"spawn_count": 28, "spawn_rate": 7.0, "text": "Level 4\n'Black Friday'"},
+	5: {"spawn_count": 50, "spawn_rate": 7.0, "text": "Level 5\n'Holiday Season'"},
+	6: {"spawn_count": 34, "spawn_rate": 6.5, "text": "Level 6\n'Total Chaos'"},
+	7: {"spawn_count": 40, "spawn_rate": 6.0, "text": "Level 7\n'HELL RETAIL'"}
 }
 
 signal hp_changed(new_hp)
@@ -84,12 +84,12 @@ func start_day():
 	# ---------------------------------------------------------
 	# --- [TEST CODE] SKIP TO END OF LEVEL 7 ---
 	# ---------------------------------------------------------
-	#if current_level == 7:
+	#if current_level == 1:
 		#print("DEBUG: Skipping to customer 39...")
 		## We pretend 39 people already came...
-		#customers_spawned = 39 
+		#customers_spawned = 13 
 		## ...AND that they already finished/left.
-		#customers_completed = 39 
+		#customers_completed = 13 
 	# ---------------------------------------------------------
 	
 	emit_signal("wave_progress_changed", customers_completed, total_customers_for_level)
@@ -152,7 +152,7 @@ func end_day():
 	print("Wave Complete!")
 	is_wave_active = false
 	emit_signal("day_ended")
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	next_level()
 
 # ---------------------------------------------------------
@@ -171,28 +171,32 @@ func next_level():
 # 2. Finish the process (Called by Level.gd after animation is done)
 func change_scene_now():
 	if current_level == 8:
-		# LEVEL 8 IS THE BOSS FIGHT
-		print("GameManager: ENTERING BOSS FIGHT!")
+		# SKIP Level Complete. SKIP Intermission.
+		# Go STRAIGHT to the Boss Fight.
+		print("GameManager: Level 7 Complete. IMMEDIATE BOSS START.")
 		get_tree().change_scene_to_file("res://Scene/BossFight.tscn")
-		# BossLevel.gd handles the fade out (Black -> Clear)
 		
-	elif current_level > 8:
-		# BEAT THE BOSS -> MAIN MENU
-		get_tree().change_scene_to_file("res://Scene/main_menu.tscn")
-		
-	else:
-		# NORMAL LEVELS
-		get_tree().change_scene_to_file("res://Scene/Intermission.tscn")
 
+	elif current_level > 8:
+		print("GameManager: BOSS DEFEATED! Playing Ending.")
+		#get_tree().change_scene_to_file("res://Scene/EndingCutscene.tscn")
+		get_tree().change_scene_to_file("res://Scene/main_menu.tscn")
+	# SITUATION: We finished Level 1, 2, 3, 4, 5, or 6.
+	
+	else:
+		print("GameManager: Level Complete. Showing Score Screen.")
+		# Go to the Level Complete animation first
+		get_tree().change_scene_to_file("res://Scene/LevelComplete.tscn")
 func game_over():
-	print("GAME OVER")
-	# Simple direct scene change since game over is abrupt
-	get_tree().change_scene_to_file("res://Scene/main_menu.tscn")
+	print("GameManager: HP is 0. GAME OVER.")
+	# Go to the new Game Over screen with the stamp animation
+	get_tree().change_scene_to_file("res://Scene/GameOver.tscn")
 
 func start_game():
 	current_level = 1
 	current_hp = max_hp
-	get_tree().change_scene_to_file("res://Scene/Intermission.tscn")
+	# CHANGED: Go to Cutscene first, not Intermission
+	get_tree().change_scene_to_file("res://Scene/IntroCutscene.tscn")
 
 func start_level_gameplay():
 	get_tree().change_scene_to_file("res://Scene/level.tscn")
