@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cxpouuf1gwqvq"
+path="res://.godot/imported/intermission.mp3-6f3b34331e7b079a0d5ddf680137a886.mp3str"
+
+[deps]
+
+source_file="res://Audio Asset/intermission.mp3"
+dest_files=["res://.godot/imported/intermission.mp3-6f3b34331e7b079a0d5ddf680137a886.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

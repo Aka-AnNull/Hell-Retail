@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://uobss5xveemi"
+path="res://.godot/imported/tombstone.wav-2b6335a87545a4b700b6f87161435db8.sample"
+
+[deps]
+
+source_file="res://Audio Asset/tombstone.wav"
+dest_files=["res://.godot/imported/tombstone.wav-2b6335a87545a4b700b6f87161435db8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

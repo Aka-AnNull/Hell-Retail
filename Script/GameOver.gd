@@ -33,7 +33,7 @@ func _ready():
 func play_hurt_flash_then_stamp():
 	# Save the "Normal" dark color you chose in the editor
 	var normal_color = background.color
-	
+	SoundManager.play_sfx("gameover")
 	# --- FLICKER EFFECT ---
 	# 1. Start Pure Red
 	background.color = Color.RED
@@ -51,24 +51,23 @@ func play_hurt_flash_then_stamp():
 	tween.tween_property(background, "color", normal_color, 0.5)
 	
 	await tween.finished
-	
+	await get_tree().create_timer(2.0).timeout
 	# --- NOW DO THE STAMP ---
 	slam_stamp()
 
 func slam_stamp():
 	# --- SLAM DOWN ---
+	SoundManager.play_sfx("stamp")
+	await get_tree().create_timer(0.3).timeout
 	var tween = create_tween()
 	tween.tween_property(stamper_tool, "position", tool_start_pos, 0.3).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
-	
 	await tween.finished
-	
 	# --- IMPACT ---
 	stamp_result.visible = true
 	shake_screen()
-	
 	# --- HOLD (1 Sec) ---
 	await get_tree().create_timer(1.0).timeout
-	
+	SoundManager.play_music("gameover_song")
 	# --- EXIT & REVEAL BUTTONS ---
 	var exit_tween = create_tween()
 	exit_tween.parallel().tween_property(stamper_tool, "position:y", tool_start_pos.y - 100.0, 1.0)
@@ -87,6 +86,8 @@ func shake_screen():
 
 # --- BUTTONS ---
 func _on_try_again_button_pressed():
+	SoundManager.play_sfx("ui_click")
+	SoundManager.fade_out_music(0.5)
 	GameManager.current_hp = GameManager.max_hp
 	if GameManager.current_level == 8:
 		get_tree().change_scene_to_file("res://Scene/BossFight.tscn")
@@ -94,10 +95,14 @@ func _on_try_again_button_pressed():
 		get_tree().change_scene_to_file("res://Scene/Intermission.tscn")
 
 func _on_menu_button_pressed():
+	SoundManager.play_sfx("ui_click")
+	SoundManager.fade_out_music(0.5)
 	get_tree().change_scene_to_file("res://Scene/main_menu.tscn")
 
 func _on_try_again_button_mouse_entered():
+	SoundManager.play_sfx("ui_hover")
 	pass 
 
 func _on_menu_button_mouse_entered():
+	SoundManager.play_sfx("ui_hover")
 	pass

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dijjii22wvrnh"
+path="res://.godot/imported/speed_boost.mp3-53d69ab9d007889acf23b79d644e00b9.mp3str"
+
+[deps]
+
+source_file="res://Audio Asset/speed_boost.mp3"
+dest_files=["res://.godot/imported/speed_boost.mp3-53d69ab9d007889acf23b79d644e00b9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

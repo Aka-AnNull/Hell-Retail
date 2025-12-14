@@ -185,6 +185,7 @@ func process_patience(delta):
 			
 			# --- ANGRY: TOO SLOW ---
 			print("Ghost: >:( TOO SLOW! -1 HP")
+			SoundManager.play_sfx("ghost_angry")
 			anim.play("angry") # Switch to angry face
 			GameManager.take_damage(1)
 	else:
@@ -197,6 +198,7 @@ func start_checkout():
 		if not can_join:
 			# --- ANGRY: LINE FULL ---
 			print("Ghost: Line full! Angry!")
+			SoundManager.play_sfx("ghost_angry")
 			anim.play("angry")
 			GameManager.take_damage(1)
 			leave_shop()
@@ -243,6 +245,7 @@ func start_searching_logic():
 	
 	# --- ANGRY: NO ITEM ---
 	print("Ghost: ANGRY! -1 HP")
+	SoundManager.play_sfx("ghost_angry")
 	anim.play("angry") # Switch to angry face
 	GameManager.take_damage(1)
 	leave_shop()

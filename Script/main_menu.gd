@@ -11,6 +11,7 @@ var button_type = null
 @onready var settings_menu = $SettingsMenu 
 
 func _ready():
+	SoundManager.play_music("menu_music")
 	$Fade_transition.show()
 	$Fade_transition/AnimationPlayer.play("Fade_out")
 	ske_menu.play("Skeleton Idle")
@@ -22,20 +23,22 @@ func _ready():
 # --- BUTTONS ---
 
 func _on_start_pressed():
-	click_sfx.play()
+	SoundManager.play_sfx("ui_click")
+	SoundManager.fade_out_music(0.5)
 	button_type = "start"
 	$Fade_transition.show()
 	$Fade_transition/Fade_timer.start()
 	$Fade_transition/AnimationPlayer.play("Fade_in")
+	await $Fade_transition/AnimationPlayer.animation_finished
 
 func _on_setting_pressed():
-	click_sfx.play()
+	SoundManager.play_sfx("ui_click")
 	# NO FADE NEEDED. Just open the popup directly.
 	settings_menu.open_settings()
 
 func _on_quit_pressed():
-	click_sfx.play()
-	await click_sfx.finished
+	SoundManager.play_sfx("ui_click")
+	SoundManager.fade_out_music(0.5)
 	# We can keep the fade for quitting if you like the dramatic exit
 	$Fade_transition.show() 
 	$Fade_transition/AnimationPlayer.play("Fade_in")
@@ -46,7 +49,6 @@ func _on_quit_pressed():
 
 func _on_fade_timer_timeout():
 	print("TIMER FINISHED! ATTEMPTING TO SWITCH SCENE...")
-	
 	if button_type == "start":
 		GameManager.start_game()
 	
@@ -54,8 +56,8 @@ func _on_fade_timer_timeout():
 
 # --- HOVER SFX ---
 func _on_start_mouse_entered() -> void:
-	hover_sfx.play()
+	SoundManager.play_sfx("ui_hover")
 func _on_setting_mouse_entered() -> void:
-	hover_sfx.play()
+	SoundManager.play_sfx("ui_hover")
 func _on_quit_mouse_entered() -> void:
-	hover_sfx.play()
+	SoundManager.play_sfx("ui_hover")

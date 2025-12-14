@@ -1,11 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cqfap1i4ej4wv"]
+[gd_scene load_steps=15 format=3 uid="uid://cqfap1i4ej4wv"]
 
 [ext_resource type="Script" uid="uid://cuwfawc85p8lw" path="res://Script/main_menu.gd" id="1_ftydy"]
 [ext_resource type="Texture2D" uid="uid://cqqssecfftw8a" path="res://Sprite/BG/daniil-glushkov-8.jpg" id="2_ejkra"]
-[ext_resource type="PackedScene" uid="uid://ba28t3xscv5c1" path="res://Scene/Menu_music.tscn" id="2_klvvj"]
 [ext_resource type="Texture2D" uid="uid://bourb0l5nq1hw" path="res://Sprite/Button/Start_ng.png" id="2_s2f1d"]
-[ext_resource type="AudioStream" uid="uid://cev0i3e2iri3n" path="res://Audio Asset/select.wav" id="2_shpw1"]
-[ext_resource type="AudioStream" uid="uid://cllptc1n32vqq" path="res://Audio Asset/confirm.wav" id="3_34sut"]
 [ext_resource type="Texture2D" uid="uid://cgfypvepivij0" path="res://Sprite/Button/Start_g.png" id="3_ejkra"]
 [ext_resource type="Texture2D" uid="uid://t5hj0we3v2vi" path="res://Sprite/ske_menu/pixil-frame-0.png" id="4_47k5r"]
 [ext_resource type="Texture2D" uid="uid://dyp5q84ugotcj" path="res://Sprite/Button/Setting_ng.png" id="4_yok32"]
@@ -36,10 +33,6 @@ animations = [{
 
 [node name="Main Menu" type="Node2D"]
 script = ExtResource("1_ftydy")
-
-[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("2_klvvj")]
-position = Vector2(497.00003, 365)
-scale = Vector2(1.7627329, 1.77375)
 
 [node name="menu_bg" type="Sprite2D" parent="."]
 position = Vector2(444.00003, 365)
@@ -103,38 +96,13 @@ texture_hover = ExtResource("7_hag5k")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Panel" type="Panel" parent="."]
-visible = false
-offset_left = 53.0
-offset_top = 89.0
-offset_right = 497.0
-offset_bottom = 641.0
-
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 54.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 20
-text = "Setting"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Fade_transition" parent="." instance=ExtResource("6_yok32")]
 visible = false
 
 [node name="Fade_timer" type="Timer" parent="Fade_transition"]
 
-[node name="HoverSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_shpw1")
-volume_db = 7.0
-
-[node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_34sut")
-volume_db = 7.0
-
 [node name="SettingsMenu" parent="." instance=ExtResource("16_34sut")]
+visible = false
 
 [connection signal="focus_entered" from="Button Manager/Start" to="." method="_on_start_focus_entered"]
 [connection signal="mouse_entered" from="Button Manager/Start" to="." method="_on_start_mouse_entered"]

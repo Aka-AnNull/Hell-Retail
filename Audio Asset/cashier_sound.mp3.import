@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://buimcshcl7dx1"
+path="res://.godot/imported/cashier_sound.mp3-48dd8a89bd3ac19d0f2612f48611572b.mp3str"
+
+[deps]
+
+source_file="res://Audio Asset/cashier_sound.mp3"
+dest_files=["res://.godot/imported/cashier_sound.mp3-48dd8a89bd3ac19d0f2612f48611572b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

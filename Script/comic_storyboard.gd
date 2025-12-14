@@ -21,6 +21,7 @@ func _ready():
 	# -----------------------------------------------------
 	# 1. SCENE START TRANSITION (Black -> Clear)
 	# -----------------------------------------------------
+	SoundManager.play_music("intermission_song")
 	fade_overlay.visible = true
 	fade_overlay.color.a = 1.0 # Start fully black
 	
@@ -83,6 +84,7 @@ func finish_comic_state():
 	next_button.text = "CONTINUE >>"
 
 func _on_button_pressed():
+	SoundManager.play_sfx("ui_click")
 	# -----------------------------------------------------
 	# SCENE END TRANSITION (Clear -> Black)
 	# -----------------------------------------------------

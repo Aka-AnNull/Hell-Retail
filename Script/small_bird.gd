@@ -146,6 +146,7 @@ func process_patience(delta):
 			# RAGE LOGIC: Took too long, revert to Angry Mode
 			is_angry_at_cashier = true 
 			update_animation() 
+			SoundManager.play_sfx("small_angry")
 			GameManager.take_damage(2) 
 	else:
 		patience_timer = 0.0
@@ -219,7 +220,7 @@ func start_searching_logic():
 	if patience_bar: patience_bar.value = 5.0
 	await get_tree().create_timer(1.0).timeout 
 	if patience_bar: patience_bar.visible = false
-	
+	SoundManager.play_sfx("small_angry")
 	GameManager.take_damage(3) 
 	leave_shop()
 
@@ -270,7 +271,7 @@ func start_checkout():
 			is_satisfied = false # Revert to angry state
 			is_angry_at_cashier = true 
 			update_animation()
-			
+			SoundManager.play_sfx("small_angry")
 			GameManager.take_damage(2) 
 			leave_shop()
 			return

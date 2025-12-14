@@ -192,6 +192,7 @@ func spawn_random_coins():
 		background_panel.add_child(btn)
 
 func _on_coin_clicked(btn_node, sprite_node):
+	SoundManager.play_sfx("coin")
 	if sprite_node.sprite_frames.has_animation("pressed"):
 		sprite_node.play("pressed")
 	else:
@@ -224,7 +225,7 @@ func finish_minigame():
 
 func play_coin_animation():
 	if not coin_effect: return
-	
+	SoundManager.play_sfx("cashier")
 	coin_effect.visible = true
 	coin_effect.position = Vector2(0, -60) 
 	coin_effect.modulate.a = 1.0 

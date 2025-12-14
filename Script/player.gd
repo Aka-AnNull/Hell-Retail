@@ -30,6 +30,7 @@ var active_interactable = null
 @onready var dash_timer = $DashTimer
 @onready var interaction_area = $InteractionArea
 @onready var slash_effect = $SlashEffect 
+@onready var footstep_timer = $FootstepTimer
 
 func _ready():
 	dash_timer.timeout.connect(_on_dash_timer_timeout)
@@ -58,8 +59,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and can_dash and direction != Vector2.ZERO:
 		start_dash()
 
-	# --- (REMOVED: Old Ghost Timer Logic from here) ---
-
 	# 4. CALCULATE SPEED
 	var current_speed = move_speed
 	
@@ -74,6 +73,15 @@ func _physics_process(delta):
 	velocity = direction * current_speed
 	
 	move_and_slide()
+	
+	# --- [NEW] FOOTSTEP LOGIC STARTS HERE ---
+	# Only play sound if moving AND the timer is ready
+	if velocity.length() > 0 and footstep_timer.is_stopped():
+		# Play walk sound with slight pitch randomization (0.8 to 1.2)
+		SoundManager.play_sfx("walk", randf_range(0.8, 1.2))
+		footstep_timer.start()
+	# --- [NEW] END ---
+
 	update_animation(direction)
 	
 	# 5. SMART INTERACTION CHECK
@@ -99,10 +107,9 @@ func _unhandled_input(event):
 
 func start_dash():
 	if is_stunned: return 
-	
 	is_dashing = true
 	can_dash = false
-	
+	SoundManager.play_sfx("dash")
 	# --- NEW: SPAWN EXACTLY 4 GHOSTS ---
 	spawn_ghost_trail() 
 	
@@ -186,6 +193,7 @@ func attempt_interaction():
 func apply_stun(duration: float):
 	if is_stunned: return 
 	print("Player: STUNNED by Reaper!")
+	SoundManager.play_sfx("slash")
 	is_stunned = true
 	is_dashing = false 
 	if slash_effect:
@@ -210,6 +218,7 @@ func take_damage(amount):
 func apply_speed_boost(duration: float):
 	if is_boosted: return 
 	is_boosted = true
+	SoundManager.play_sfx("boost")
 	_reset_color() 
 	await get_tree().create_timer(duration).timeout
 	is_boosted = false
@@ -235,15 +244,16 @@ func _reset_color():
 func pickup_item(item_type: String):
 	held_item_name = item_type
 	print("Player: Picked up " + item_type)
-	
+	SoundManager.play_sfx("pickup")
 func clear_item():
 	print("Player: Used " + held_item_name)
 	held_item_name = "" 
-
+	SoundManager.play_sfx("refill")
 func drop_held_item():
 	if held_item_name != "":
 		print("Player: Dropped " + held_item_name + " on the floor.")
 		held_item_name = "" 
+		SoundManager.play_sfx("drop")
 	else:
 		print("Player: Nothing to drop!")
 

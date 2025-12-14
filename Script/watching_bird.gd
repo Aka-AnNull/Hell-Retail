@@ -51,6 +51,7 @@ func spawn_sequence():
 		smoke_effect.visible = true
 		smoke_effect.play("default")
 		await get_tree().create_timer(0.2).timeout
+		SoundManager.play_sfx("smoke")
 	
 	# 2. Show Bird
 	bird_sprite.visible = true
@@ -102,6 +103,7 @@ func leave_sequence(give_reward: bool):
 		smoke_effect.visible = true
 		smoke_effect.play("default")
 		await get_tree().create_timer(0.1).timeout
+		SoundManager.play_sfx("smoke")
 	
 	# 3. HIDE BIRD
 	bird_sprite.visible = false

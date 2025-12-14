@@ -282,12 +282,14 @@ func reaper_angry(reason):
 	
 	# --- SKILL: STUN PLAYER (2 Seconds) ---
 	if GameManager.has_method("stun_player"):
+		SoundManager.play_sfx("reaper_angry")
 		GameManager.stun_player(2.0)
 	else:
 		print("ERROR: GameManager missing 'stun_player' function!")
 	
 	# Deal Damage
 	if GameManager.has_method("take_damage"):
+		SoundManager.play_sfx("reaper_angry")
 		GameManager.take_damage(2) 
 
 	# NOTE: We DO NOT call leave_shop() here anymore!

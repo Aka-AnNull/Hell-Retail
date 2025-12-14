@@ -5,7 +5,7 @@ extends Node2D
 @onready var timer_label = $BossUI/TimerLabel
 @onready var black_screen = $BossUI/BlackScreen
 @onready var cutscene_label = $BossUI/BlackScreen/CutsceneLabel
-
+@onready var incoming_label =$BossUI/IncomingLabel
 # --- MARKER GROUPS ---
 @onready var wall_spots = $WallSpots.get_children()
 @onready var slime_spots = $SlimeSpots.get_children()
@@ -31,14 +31,15 @@ func _ready():
 
 func start_intro_cutscene():
 	await show_text("HE IS COMING...")
+	SoundManager.play_sfx("boss_laugh")
 	await show_text("HE DEMANDS PERFECTION...")
+	SoundManager.play_music("boss_music")
 	await show_text("FILL. ALL. SHELVES.")
 	
 	var tween = create_tween()
 	tween.tween_property(black_screen, "modulate:a", 0.0, 2.0)
 	await tween.finished
 	black_screen.visible = false
-	
 	if jumo:
 		# Jumo falls directly to the cashier stand
 		jumo.play_entrance(cashier_stand.global_position)
@@ -111,7 +112,9 @@ func start_cashier_phase():
 	phase = "CASHIER"
 	timer_label.modulate = Color(0, 1, 0) # Green
 	print("ALL SHELVES FULL! JUMO VULNERABLE.")
-	
+	SoundManager.fade_out_music(0.5)
+	await get_tree().create_timer(1.0).timeout
+	SoundManager.play_music("Theend")
 	# Tell Jumo to join queue
 	if is_instance_valid(jumo):
 		jumo.become_vulnerable()
@@ -154,5 +157,10 @@ func game_over_lose():
 func game_over_win():
 	print("YOU BEAT THE GAME!")
 	# Transition to Main Menu or Victory Screen
-	await get_tree().create_timer(3.0).timeout
-	GameManager.game_over()
+	incoming_label.visible = false
+	GameManager.current_level += 1
+	$Fade_transition.show()
+	var anim = $Fade_transition/AnimationPlayer
+	anim.play("Fade_in")
+	await get_tree().create_timer(2.0).timeout
+	GameManager.change_scene_now()

@@ -7,6 +7,7 @@ var health : int = 5
 
 func _ready():
 	# Optional: Add a small "pop" effect when it spawns
+	SoundManager.play_sfx("tomb_spawn")
 	scale = Vector2(0.1, 0.1)
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1, 1), 0.5).set_trans(Tween.TRANS_BOUNCE)
@@ -18,7 +19,7 @@ func _input_event(viewport, event, shape_idx):
 
 func take_hit():
 	health -= 1
-	
+	SoundManager.play_sfx("tomb_break")
 	# --- VISUAL FEEDBACK (Shake/Scale) ---
 	# This makes it feel satisfying to click
 	var tween = create_tween()

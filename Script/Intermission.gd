@@ -71,6 +71,7 @@ func _ready():
 	# -----------------------------------------------------
 	# PART 1: TOP HEADER (Your Original Logic)
 	# -----------------------------------------------------
+	SoundManager.play_music("intermission_song")
 	fade_anim.play("Fade_out")
 	var current_lvl = GameManager.current_level
 	
@@ -134,11 +135,13 @@ func update_slide_ui():
 func _on_left_button_pressed():
 	if slide_index > 0:
 		slide_index -= 1
+		SoundManager.play_sfx("button_click")
 		update_slide_ui()
 
 func _on_right_button_pressed():
 	if slide_index < current_slides.size() - 1:
 		slide_index += 1
+		SoundManager.play_sfx("button_click")
 		update_slide_ui()
 
 func _process(_delta):
@@ -146,6 +149,8 @@ func _process(_delta):
 	# PART 3: START LEVEL (Your Original Logic)
 	# -----------------------------------------------------
 	if Input.is_action_just_pressed("ui_accept"):
+		SoundManager.fade_out_music(0.5)
+		SoundManager.play_sfx("start")
 		print("Starting Level...")
 		fade_anim.play("Fade_in")
 		await fade_anim.animation_finished

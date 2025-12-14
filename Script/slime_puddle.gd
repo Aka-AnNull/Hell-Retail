@@ -5,7 +5,7 @@ extends Area2D
 func _ready():
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
-	
+	SoundManager.play_sfx("puddle")
 	# --- 1. APPEAR EFFECT (Pop-in like Graveyard) ---
 	scale = Vector2(0.1, 0.1) # Start tiny
 	var pop_tween = create_tween()

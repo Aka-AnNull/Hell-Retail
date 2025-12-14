@@ -235,3 +235,7 @@ scale = Vector2(0.1, 0.101)
 sprite_frames = SubResource("SpriteFrames_uktg4")
 frame = 8
 frame_progress = 1.0
+
+[node name="FootstepTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true

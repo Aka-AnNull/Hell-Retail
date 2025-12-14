@@ -110,7 +110,7 @@ func become_angry(reason: String):
 	print("Zombie Angry: " + reason)
 	is_angry = true
 	update_animation()
-	
+	SoundManager.play_sfx("zombie_angry")
 	GameManager.take_damage(1)
 	
 	# --- FIX: ADD "Line Full" HERE ---

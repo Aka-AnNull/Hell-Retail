@@ -38,9 +38,11 @@ func toggle_pause():
 # Make sure you connected the TextureButton signals to these!
 
 func _on_resume_button_pressed():
+	SoundManager.play_sfx("ui_click")
 	toggle_pause()
 
 func _on_restart_button_pressed():
+	SoundManager.play_sfx("ui_click")
 	toggle_pause() # Unpause first!
 	GameManager.current_hp = GameManager.max_hp
 	if GameManager.current_level == 8:
@@ -49,9 +51,21 @@ func _on_restart_button_pressed():
 		get_tree().change_scene_to_file("res://Scene/level.tscn")
 
 func _on_settings_button_pressed():
+	SoundManager.play_sfx("ui_click")
 	content.visible = false # Hide buttons so they don't block the settings
 	settings_menu.open_settings()
 
 func _on_quit_button_pressed():
+	SoundManager.play_sfx("ui_click")
 	toggle_pause()
 	get_tree().change_scene_to_file("res://Scene/main_menu.tscn")
+
+
+func _on_resume_button_mouse_entered() -> void:
+	SoundManager.play_sfx("ui_hover")
+func _on_restart_button_mouse_entered() -> void:
+	SoundManager.play_sfx("ui_hover")
+func _on_settings_button_mouse_entered() -> void:
+	SoundManager.play_sfx("ui_hover")
+func _on_quit_button_mouse_entered() -> void:
+	SoundManager.play_sfx("ui_hover")

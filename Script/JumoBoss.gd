@@ -33,7 +33,7 @@ func play_entrance(target_pos):
 	# LANDING
 	if anim.sprite_frames.has_animation("idle"):
 		anim.play("idle")
-	
+	SoundManager.play_sfx("boss_laugh")
 	# Screen Shake & Wipe Stock
 	GameManager.activate_stock_wipe()
 
@@ -43,7 +43,7 @@ func cast_attack(attack_type: String, markers: Array):
 	
 	if anim.sprite_frames.has_animation("angry"):
 		anim.play("angry")
-	
+	SoundManager.play_sfx("boss_laugh")
 	# ---------------------------------------------------------
 	# FIX 1: SLIME (Spawn 2 Random Puddles from available spots)
 	# ---------------------------------------------------------
@@ -110,11 +110,10 @@ func get_served():
 	is_served = true
 	
 	print("Jumo: TRANSACTION COMPLETE.")
-	
+	SoundManager.play_sfx("boss_laugh")
 	# Float away
 	if anim.sprite_frames.has_animation("float"):
 		anim.play("float")
-	
 	var tween = create_tween()
 	# Slow float (6 seconds)
 	tween.tween_property(self, "position:y", -1000.0, 6.0)

@@ -34,6 +34,7 @@ var specific_spawns = {
 		35: "LongBird" 
 	},
 	6: { 
+		1: "SmallBird",
 		12: "LongBird", 
 		25: "LongBird" 
 	},
@@ -149,6 +150,7 @@ func spawn_customer():
 	# D. SPAWN THE CUSTOMER
 	# -----------------------------------------------------
 	if scene_to_spawn:
+		SoundManager.play_sfx("spawner")
 		var new_customer = scene_to_spawn.instantiate()
 		new_customer.global_position = global_position 
 		get_parent().add_child(new_customer)

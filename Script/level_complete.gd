@@ -18,7 +18,7 @@ func _ready():
 	level_sprite.modulate.a = 0.0
 	complete_sprite.modulate.a = 0.0
 	skip_text.modulate.a = 0.0
-	
+	SoundManager.play_music("complete_song")
 	# 2. Fade In Red Background (Black -> Red)
 	fade_overlay.visible = true
 	fade_overlay.color = Color.BLACK
@@ -58,7 +58,7 @@ func start_animation_sequence():
 	t3.tween_property(skip_text, "modulate:a", 1.0, 0.5)
 	
 	# --- AUTO EXIT (9s total) ---
-	await get_tree().create_timer(6.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	if not skipped:
 		go_next_scene()
 

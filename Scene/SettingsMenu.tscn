@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://0732m3hemj0"]
+[gd_scene load_steps=10 format=3 uid="uid://0732m3hemj0"]
 
 [ext_resource type="Script" uid="uid://di3lynjdv7nmf" path="res://Script/settings_menu.gd" id="1_ja44g"]
 [ext_resource type="Texture2D" uid="uid://qvrvujguuwfk" path="res://Sprite/Button/Box.png" id="2_m2uj1"]
 [ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="3_5j6u0"]
 [ext_resource type="Texture2D" uid="uid://dahg83bad2ioi" path="res://Sprite/Button/BACK_NG.png" id="4_8ijbb"]
 [ext_resource type="Texture2D" uid="uid://41r82p1cmpis" path="res://Sprite/Button/BACK_G.png" id="5_e7u0x"]
+[ext_resource type="PackedScene" uid="uid://b73qr4bhmnx7p" path="res://Scene/SoundManager.tscn" id="6_m2uj1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_252gt"]
 font = ExtResource("3_5j6u0")
@@ -112,4 +113,10 @@ texture_hover = ExtResource("5_e7u0x")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="SoundManager" parent="Window" instance=ExtResource("6_m2uj1")]
+
+[connection signal="value_changed" from="Window/SliderBox/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="Window/SliderBox/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Window/SliderBox/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="mouse_entered" from="Window/BackButton" to="." method="_on_back_button_mouse_entered"]
 [connection signal="pressed" from="Window/BackButton" to="." method="_on_back_button_pressed"]

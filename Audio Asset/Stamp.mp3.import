@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dx1xt4810rar4"
+path="res://.godot/imported/Stamp.mp3-9459c7e05b4af45a10eb0ebb0aa211b1.mp3str"
+
+[deps]
+
+source_file="res://Audio Asset/Stamp.mp3"
+dest_files=["res://.godot/imported/Stamp.mp3-9459c7e05b4af45a10eb0ebb0aa211b1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

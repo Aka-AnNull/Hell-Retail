@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c5r0ofe2x028f"
+path="res://.godot/imported/Judgement.mp3-79d6767fc9a7f737df75564ad45dbaf2.mp3str"
+
+[deps]
+
+source_file="res://Audio Asset/Judgement.mp3"
+dest_files=["res://.godot/imported/Judgement.mp3-79d6767fc9a7f737df75564ad45dbaf2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

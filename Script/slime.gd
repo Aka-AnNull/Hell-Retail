@@ -37,7 +37,7 @@ func _ready():
 	
 	cashier_node = get_parent().find_child("CashierZone", true, false)
 	
-	# SLIME SHOPPING LIST (Vertical Items)
+	# SLIME SHOPPING LIST
 	var shopping_list = ["Fanta", "Sarsi", "Est"] 
 	desired_item_name = shopping_list.pick_random()
 	target_shelf_node = find_shelf_for_item(desired_item_name)
@@ -109,23 +109,27 @@ func _physics_process(delta):
 	
 	update_animation()
 
-# --- SLIME ANGER LOGIC ---
+# --- SLIME ANGER LOGIC (FIXED TO MATCH ZOMBIE) ---
 func become_angry(reason: String):
 	print("Slime Angry: " + reason)
 	is_angry = true
 	update_animation()
-	
+	SoundManager.play_sfx("slime_angry")
 	GameManager.take_damage(1)
 	
-	# --- FIX: GO TO PUDDLE IF LINE FULL ---
+	# --- LOGIC COPIED FROM ZOMBIE (Structure-wise) ---
 	if reason == "Shelf Empty" or reason == "Line Full":
 		print("Slime: Line Full or Empty Shelf! Moving to sabotage floor...")
+		# Slime specific sabotage: Go to puddle marker
 		var random_marker = ["Puddle1", "Puddle2", "Puddle3"].pick_random()
 		go_to_node(random_marker, State.TO_PUDDLE_MARKER)
 		
 	else:
-		print("Slime: Mad at cashier/line.")
-		leave_shop()
+		# --- FIX IS HERE ---
+		# In Zombie script, the 'else' block implies "Mad at cashier speed"
+		# and simply prints a message. It DOES NOT leave the shop.
+		print("Slime: Mad at cashier speed (Staying in line).")
+		# No leave_shop()!
 
 func spawn_puddle_here():
 	if puddle_scene:
@@ -240,8 +244,7 @@ func start_checkout():
 	if GameManager.has_method("join_queue"):
 		var can_join = GameManager.join_queue(self, max_queue_size)
 		if not can_join:
-			# --- FIX: REMOVED leave_shop() HERE ---
-			# We call become_angry with "Line Full", which moves him to sabotage spot.
+			# Use Slime-specific sabotage logic here
 			become_angry("Line Full")
 			return
 	go_to_node("CashierZone", State.TO_CASHIER)
@@ -287,6 +290,7 @@ func attempt_take_item():
 	if target_shelf_node and target_shelf_node.has_method("ai_take_item"):
 		var success = target_shelf_node.ai_take_item()
 		if success:
+			# Slime takes 2 items (double tap)
 			target_shelf_node.ai_take_item() 
 			return true
 	return false

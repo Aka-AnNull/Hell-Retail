@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=3 uid="uid://ddngb4h32fmja"]
+
+[ext_resource type="Script" uid="uid://buvoxeffo4ij1" path="res://Script/EndingCutscene.gd" id="1_5bmw2"]
+[ext_resource type="Texture2D" uid="uid://dvxsotywxuu4b" path="res://Sprite/Intro/TE_1.png" id="2_k2mct"]
+[ext_resource type="Texture2D" uid="uid://bo0tmffoprqio" path="res://Sprite/Intro/TE_2.png" id="3_3fbjo"]
+[ext_resource type="Texture2D" uid="uid://bmbrk8te1fy4p" path="res://Sprite/Intro/TE_3.png" id="4_xv5h2"]
+[ext_resource type="FontFile" uid="uid://bjvinrnu5nnxa" path="res://Resorces/m5x7.ttf" id="5_akd0y"]
+[ext_resource type="Texture2D" uid="uid://gxt1tbjc1b1i" path="res://Sprite/Button/MENU_NG.png" id="6_ufd01"]
+[ext_resource type="Texture2D" uid="uid://c4xgpn8q4uf7y" path="res://Sprite/Button/MENU_G.png" id="7_tkki2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ei42h"]
+font = ExtResource("5_akd0y")
+font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_107xv"]
+font = ExtResource("5_akd0y")
+font_size = 180
+
+[sub_resource type="LabelSettings" id="LabelSettings_hmml0"]
+font = ExtResource("5_akd0y")
+font_size = 85
+
+[node name="EndingCutscene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5bmw2")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Panel1" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 133.0
+offset_top = 9.0
+offset_right = 621.46155
+offset_bottom = 263.0
+texture = ExtResource("2_k2mct")
+expand_mode = 1
+
+[node name="Panel2" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 89.0
+offset_top = 280.0
+offset_right = 646.3333
+offset_bottom = 698.0
+texture = ExtResource("3_3fbjo")
+expand_mode = 1
+
+[node name="Panel3" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 690.0
+offset_top = 3.0
+offset_right = 1187.0
+offset_bottom = 748.5001
+texture = ExtResource("4_xv5h2")
+expand_mode = 1
+
+[node name="ScamLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 778.0
+offset_top = 318.0
+offset_right = 1093.0
+offset_bottom = 576.0
+text = "It was not
+a scam 
+after all..."
+label_settings = SubResource("LabelSettings_ei42h")
+horizontal_alignment = 1
+
+[node name="BlackOverlay" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GameLogo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EndUI" type="VBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TheEndLabel" type="Label" parent="EndUI"]
+layout_mode = 2
+text = "The End"
+label_settings = SubResource("LabelSettings_107xv")
+horizontal_alignment = 1
+
+[node name="CreatorLabel" type="Label" parent="EndUI"]
+layout_mode = 2
+text = "Create by
+Sakaranan Srisawat 68070501085
+Pongrapee Worasan 68070501075
+Nattachai Aurmaroon 68070501066
+Chaiyakorn Prapanpongpinit 68070501064"
+label_settings = SubResource("LabelSettings_hmml0")
+horizontal_alignment = 1
+
+[node name="MainMenuButton" type="TextureButton" parent="EndUI"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture_normal = ExtResource("6_ufd01")
+texture_pressed = ExtResource("7_tkki2")
+texture_hover = ExtResource("7_tkki2")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="mouse_entered" from="EndUI/MainMenuButton" to="." method="_on_main_menu_button_mouse_entered"]
+[connection signal="pressed" from="EndUI/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

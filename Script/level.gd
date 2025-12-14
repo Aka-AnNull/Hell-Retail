@@ -3,17 +3,28 @@ extends Node2D
 # --- NODES ---
 @onready var spawner = $Spawner
 @onready var hud = $UI_Layer/HUD
-
-# --- NEW: INCOMING LABEL ---
 @onready var incoming_label = $UI_Layer/IncomingLabel 
 
 # --- SETUP VARIABLES ---
-var setup_time : float = 21.0
+# CHANGED: Set to 3.0 for testing (Change back to 21.0 when done!)
+var setup_time : float = 3.0 
 var is_setup_phase : bool = true
 
 func _ready():
 	# ---------------------------------------------------------
-	# 1. TRANSITION SETUP
+	# 1. PLAY MUSIC IMMEDIATELY (The Fix)
+	# ---------------------------------------------------------
+	var lvl = GameManager.current_level
+	var track_name = "level" # Default fallback
+	
+	if GameManager.level_data.has(lvl):
+		track_name = GameManager.level_data[lvl].get("music", "level")
+	
+	print("Level: Scene Loaded. Playing Music -> ", track_name)
+	SoundManager.play_music(track_name)
+
+	# ---------------------------------------------------------
+	# 2. TRANSITION SETUP
 	# ---------------------------------------------------------
 	if not GameManager.request_level_transition.is_connected(_on_transition_requested):
 		GameManager.request_level_transition.connect(_on_transition_requested)
@@ -23,7 +34,7 @@ func _ready():
 		$Fade_transition/AnimationPlayer.play("Fade_out")
 
 	# ---------------------------------------------------------
-	# 2. ANIMATE DECORATIONS
+	# 3. ANIMATE DECORATIONS
 	# ---------------------------------------------------------
 	var torches = get_tree().get_nodes_in_group("Torches")
 	for torch in torches:
@@ -31,26 +42,25 @@ func _ready():
 			torch.play("default")
 
 	# ---------------------------------------------------------
-	# 3. START SETUP PHASE
+	# 4. START SETUP PHASE
 	# ---------------------------------------------------------
-	print("Level: Setup Phase Started. Shop opens in 20s.")
+	print("Level: Setup Phase Started.")
 	is_setup_phase = true
 	
 	if spawner:
 		spawner.stop_spawning()
 
 	# ---------------------------------------------------------
-	# 4. CONNECT PLAYER ABILITY
+	# 5. CONNECT PLAYER ABILITY
 	# ---------------------------------------------------------
 	var player = get_tree().get_first_node_in_group("Player")
 	if player:
 		if player.has_signal("ability_activated"):
 			player.ability_activated.connect(trigger_equalizer_skill)
-			print("Level: Connected to Player Equalizer Skill.")
 		else:
-			print("Level: Player found, but missing 'ability_activated' signal!")
+			print("Level: Player missing 'ability_activated' signal!")
 	else:
-		print("Level: Player node not found in group 'Player'!")
+		print("Level: Player node not found!")
 
 func _process(delta):
 	# ---------------------------------------------------------
@@ -72,30 +82,22 @@ func _process(delta):
 		var display_number = 0
 		
 		if is_setup_phase:
-			# PHASE A: PREVIEW
 			var lvl = GameManager.current_level
 			if GameManager.level_data.has(lvl):
 				display_number = GameManager.level_data[lvl]["spawn_count"]
 			else:
 				display_number = 5 
 		else:
-			# PHASE B: LIVE ACTION
 			var total = GameManager.total_customers_for_level
 			var spawned = GameManager.customers_spawned
 			display_number = total - spawned
 		
-		# --- SPECIAL RULE FOR LEVEL 7 ---
-		# Add +1 for Jumo (The Boss)
+		# Boss Logic
 		if GameManager.current_level == 7:
 			display_number += 1
-		# --------------------------------
 		
-		# Safety Check
 		if display_number < 0: display_number = 0
-		
-		# Update Text
 		incoming_label.text = str(display_number)
-
 func start_actual_wave():
 	is_setup_phase = false
 	print("Level: SHOP OPEN! Wave Incoming.")
