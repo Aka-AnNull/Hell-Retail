@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cqfap1i4ej4wv"]
+[gd_scene load_steps=18 format=3 uid="uid://cqfap1i4ej4wv"]
 
 [ext_resource type="Script" uid="uid://cuwfawc85p8lw" path="res://Script/main_menu.gd" id="1_ftydy"]
 [ext_resource type="Texture2D" uid="uid://cqqssecfftw8a" path="res://Sprite/BG/daniil-glushkov-8.jpg" id="2_ejkra"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b5y1nqtdn6occ" path="res://Sprite/BG/unnamed (1)-Photoroom.png" id="6_hag5k"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="6_yok32"]
 [ext_resource type="Texture2D" uid="uid://u4msaiemy6q3" path="res://Sprite/Button/Quit_g.png" id="7_hag5k"]
+[ext_resource type="PackedScene" uid="uid://0732m3hemj0" path="res://Scene/SettingsMenu.tscn" id="16_34sut"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4ckpx"]
 animations = [{
@@ -132,6 +133,8 @@ volume_db = 7.0
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_34sut")
 volume_db = 7.0
+
+[node name="SettingsMenu" parent="." instance=ExtResource("16_34sut")]
 
 [connection signal="focus_entered" from="Button Manager/Start" to="." method="_on_start_focus_entered"]
 [connection signal="mouse_entered" from="Button Manager/Start" to="." method="_on_start_mouse_entered"]

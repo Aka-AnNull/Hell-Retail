@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://bhkkxgqsmks02"]
+[gd_scene load_steps=75 format=3 uid="uid://bhkkxgqsmks02"]
 
 [ext_resource type="Script" uid="uid://bjomty5twa62f" path="res://Script/level.gd" id="1_or6n4"]
 [ext_resource type="PackedScene" uid="uid://l1bhryukeiwu" path="res://Scene/player.tscn" id="2_jnrmd"]
@@ -53,6 +53,7 @@
 [ext_resource type="SpriteFrames" uid="uid://0qndh2gwbvxy" path="res://Resorces/Sprite_Coke.tres" id="31_bqm8m"]
 [ext_resource type="SpriteFrames" uid="uid://p2u5223dnhqh" path="res://Resorces/Sprite_Sprite.tres" id="31_qim27"]
 [ext_resource type="PackedScene" uid="uid://d1b8rrv1u73gp" path="res://Scene/WatchingBird.tscn" id="37_leq4y"]
+[ext_resource type="PackedScene" uid="uid://bvov4ngvfynj3" path="res://Scene/PauseMenu.tscn" id="54_cgk27"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qma8"]
 size = Vector2(25, 395.5)
@@ -537,5 +538,7 @@ y_sort_enabled = true
 position = Vector2(929, 280)
 
 [node name="Fade_transition" parent="." instance=ExtResource("2_tut6d")]
-visible = false
 z_index = 5
+
+[node name="PauseMenu" parent="." instance=ExtResource("54_cgk27")]
+visible = false

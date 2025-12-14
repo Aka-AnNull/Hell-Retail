@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://dv34dfrll1ny1"]
+[gd_scene load_steps=70 format=3 uid="uid://dv34dfrll1ny1"]
 
 [ext_resource type="Script" uid="uid://bbejxncmxs84j" path="res://Script/BossLevel.gd" id="1_6210o"]
 [ext_resource type="Texture2D" uid="uid://dejrwhdgydt1b" path="res://Sprite/BG/BG_FULL.png" id="2_ey4v6"]
@@ -47,6 +47,7 @@
 [ext_resource type="PackedScene" uid="uid://dt6myf7lkv4tw" path="res://Scene/UserInterface.tscn" id="43_4y77y"]
 [ext_resource type="PackedScene" uid="uid://l1bhryukeiwu" path="res://Scene/player.tscn" id="44_4kkl6"]
 [ext_resource type="PackedScene" uid="uid://twkkl6x53d4o" path="res://Scene/Fade_transition.tscn" id="45_akgdu"]
+[ext_resource type="PackedScene" uid="uid://bvov4ngvfynj3" path="res://Scene/PauseMenu.tscn" id="48_tgbpb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qma8"]
 size = Vector2(25, 395.5)
@@ -513,7 +514,6 @@ offset_right = 652.0
 offset_bottom = 48.0
 
 [node name="BossUI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="IncomingLabel" type="Label" parent="BossUI"]
 z_index = 2
@@ -569,3 +569,5 @@ position = Vector2(615, -230)
 [node name="Fade_transition" parent="." instance=ExtResource("45_akgdu")]
 visible = false
 z_index = 2
+
+[node name="PauseMenu" parent="." instance=ExtResource("48_tgbpb")]
